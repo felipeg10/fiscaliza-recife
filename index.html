@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +10,7 @@
     <!-- Chart.js para os gráficos -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body class="bg-gray-50 font-sans text-gray-800">
 
     <!-- Cabeçalho -->
@@ -18,10 +20,12 @@
                 <h1 class="text-2xl font-bold flex items-center gap-2">
                     🏛️ Fiscaliza Recife
                 </h1>
-                <p class="text-blue-200 text-sm mt-1">Monitoramento inteligente e transparente dos Projetos de Lei da Câmara Municipal</p>
+                <p class="text-blue-200 text-sm mt-1">Monitoramento inteligente e transparente dos Projetos de Lei da
+                    Câmara Municipal</p>
             </div>
             <div class="mt-4 md:mt-0">
-                <span class="bg-blue-800 text-blue-100 text-xs font-semibold px-3 py-1.5 rounded-full border border-blue-700">
+                <span
+                    class="bg-blue-800 text-blue-100 text-xs font-semibold px-3 py-1.5 rounded-full border border-blue-700">
                     ⚡ Dados atualizados direto da API oficial
                 </span>
             </div>
@@ -57,56 +61,3 @@
                 <div class="relative h-64 flex justify-center items-center">
                     <canvas id="graficoTemas"></canvas>
                 </div>
-            </div>
-
-            <!-- Área de Consulta / Busca -->
-            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 lg:col-span-2">
-                <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                    🔍 Consultar Projetos e Requerimentos
-                </h3>
-                
-                <!-- Filtros -->
-                <div class="flex flex-col md:flex-row gap-4 mb-6">
-                    <div class="flex-1">
-                        <input type="text" id="inputBusca" placeholder="Pesquisar por autor, ementa ou número..." 
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
-                    </div>
-                    <div>
-                        <select id="filtroAno" class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm bg-white">
-                            <option value="todos">📅 Todos os Anos</option>
-                            <option value="2026">2026</option>
-                            <option value="2025">2025</option>
-                            <option value="2024">2024</option>
-                        </select>
-                    </div>
-                </div>
-
-                <!-- Lista de Resultados -->
-                <div id="listaProjetos" class="space-y-4 max-h-[450px] overflow-y-auto pr-2">
-                    <p class="text-gray-500 text-sm text-center py-8">Carregando dados das proposições...</p>
-                </div>
-            </div>
-        </div>
-
-    </main>
-
-    <!-- Rodapé -->
-    <footer class="bg-white border-t border-gray-200 mt-12 py-6 text-center text-sm text-gray-500">
-        <p>Fiscaliza Recife &copy; 2026 — Transparência Legislativa Aberta para o Cidadão.</p>
-    </footer>
-
-    <!-- Lógica JavaScript -->
-    <script>
-        let dadosProjetos = [];
-        let meuGrafico = null;
-
-        async function carregarDados() {
-            try {
-                const resposta = await fetch('projetos_recife_2026.json');
-                if (!resposta.ok) throw new Error('Arquivo JSON não encontrado');
-                dadosProjetos = await resposta.json();
-                atualizarInterface(dadosProjetos);
-            } catch (erro) {
-                console.warn('Erro ao carregar JSON, usando fallback.', erro);
-                dadosProjetos = [
-                    { identificacao: "REQ 7804/2026", numero: 7804, autor: "Parlamentar / Mesa Diretora", ementa: "Indicação ao Presidente da EMLURB para viabilizar a reposição da tampa de galeria...", ano: "2026", tema: "Mobilidade Urbana", status: "
