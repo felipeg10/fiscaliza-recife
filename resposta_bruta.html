@@ -1,0 +1,896 @@
+
+
+
+
+
+<!doctype html>
+        
+    
+    
+<html lang="pt-BR" xml:lang="pt-BR">
+    <head>
+        <meta charset="utf-8" />
+        <!-- Marca JS cedo: fallbacks .sagl-nojs-only ficam só sem script (evita WAVE noscript + links duplicados). -->
+        <script>document.documentElement.classList.add('sagl-js');</script>
+        <!-- __ac visível no JS = residual sem HttpOnly (ticket morto). Sessão HttpOnly não entra em document.cookie. -->
+        <script>(function(){var c=document.cookie||'';if(c.indexOf('__ac=')<0)return;var p='Thu, 01 Jan 1970 00:00:00 GMT';document.cookie='__ac=; path=/; expires='+p+'; Max-Age=0; Secure; SameSite=Lax';document.cookie='__ac=; path=/; expires='+p+'; Max-Age=0';})();</script>
+        
+                <!-- defer: aplica classe de fonte no <html> antes do DOMContentLoaded, sem bloquear o parse -->
+        <script src="https://e-processo.recife.pe.leg.br/js/acessibilidade.js?v=202610262010&ace=202608301300" defer></script>
+                        <title>Pesquisa de Matérias — Câmara Municipal do Recife</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Portal legislativo de Câmara Municipal do Recife: consulte vereadores, matérias, leis e reuniões plenárias." />
+        <meta content="OpenLegis" name="author" />
+        <!-- App favicon: brasão da câmara, com fallback para logo OpenLegis -->
+                <link rel="icon" href="https://e-processo.recife.pe.leg.br/@@sapl_documentos_download?path=props_sagl/logo_casa.gif" id="favicon-link" data-fallback="https://e-processo.recife.pe.leg.br/imagens/favicon.ico">
+        <script src="https://e-processo.recife.pe.leg.br/assets/js/pages/favicon_fallback.init.js?v=202610262010&ff=202608250135"></script>
+                <link rel="manifest" href="https://e-processo.recife.pe.leg.br/manifest.json">
+        <link href="https://e-processo.recife.pe.leg.br/assets/css/fonts-local.css?v=202610262010&font=202609230335" rel="stylesheet" type="text/css" />
+        <!-- CSS crítico do layout (mantidos bloqueantes de propósito) -->
+        <link href="https://e-processo.recife.pe.leg.br/assets/css/bootstrap.min.css?v=202610262010" id="bootstrap-style" rel="stylesheet" type="text/css" />
+        <link href="https://e-processo.recife.pe.leg.br/assets/css/icons.min.css?v=202610262010" rel="stylesheet" type="text/css" />
+        <link href="https://e-processo.recife.pe.leg.br/assets/css/app.css?v=202610262010&css=202611062155" id="app-style" rel="stylesheet" type="text/css" />
+        <link href="https://e-processo.recife.pe.leg.br/assets/css/listagens_cadastro.css?v=202610262010&lst=202611061910" rel="stylesheet" type="text/css" />
+                <!-- TomSelect no layout: o CSS no fragmento HTMX some no swap e o dropdown vira a caixinha vazia. -->
+        <link href="https://e-processo.recife.pe.leg.br/assets/libs/tom-select/tom-select.bootstrap5.css?v=202610262010&ts=202608201200" rel="stylesheet" type="text/css" />
+        <link href="https://e-processo.recife.pe.leg.br/assets/css/pesquisa_tomselect.css?v=202610262010&pts=202609041630" rel="stylesheet" type="text/css" />
+        <!-- CSS de widgets: deferidos — JS correspondente só roda no rodapé (js_slot) -->
+                <link href="https://e-processo.recife.pe.leg.br/assets/libs/datatables.net/css/dataTables.bootstrap5.min.css?v=202610262010" rel="stylesheet" type="text/css" media="print" onload="this.media='all'" />
+        <link href="https://e-processo.recife.pe.leg.br/assets/libs/datatables.net/css/buttons.bootstrap5.min.css?v=202610262010" rel="stylesheet" type="text/css" media="print" onload="this.media='all'" />
+        <link href="https://e-processo.recife.pe.leg.br/assets/libs/datatables.net/css/responsive.bootstrap5.min.css?v=202610262010" rel="stylesheet" type="text/css" media="print" onload="this.media='all'" />
+        <link href="https://e-processo.recife.pe.leg.br/assets/libs/datatables.net/css/select.bootstrap5.min.css?v=202610262010" rel="stylesheet" type="text/css" media="print" onload="this.media='all'" />
+        <link href="https://e-processo.recife.pe.leg.br/assets/libs/datatables.net/css/rowReorder.bootstrap5.min.css?v=202610262010" rel="stylesheet" type="text/css" media="print" onload="this.media='all'" />
+                <link href="https://e-processo.recife.pe.leg.br/assets/libs/select2/css/select2.min.css?v=202610262010" rel="stylesheet" type="text/css" media="print" onload="this.media='all'" />
+        <link href="https://e-processo.recife.pe.leg.br/assets/libs/select2/css/select2-bootstrap-overrides.css?v=202610262010&s2=202608051555" rel="stylesheet" type="text/css" media="print" onload="this.media='all'" />
+        <link href="https://e-processo.recife.pe.leg.br/assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css?v=202610262010" rel="stylesheet" type="text/css" media="print" onload="this.media='all'" />
+    </head>
+
+    <body data-topbar="dark" data-layout="horizontal"  >
+        <script>
+        (function () {
+          try {
+            // localStorage = fonte da verdade entre abas; sessionStorage só espelha.
+            var v = null;
+            try { v = localStorage.getItem('is_visited'); } catch (e0) { /* noop */ }
+            if (v !== 'dark-mode-switch' && v !== 'light-mode-switch') {
+              try { v = sessionStorage.getItem('is_visited'); } catch (e1) { /* noop */ }
+              if (v === 'dark-mode-switch' || v === 'light-mode-switch') {
+                try { localStorage.setItem('is_visited', v); } catch (e2) { /* noop */ }
+              }
+            } else {
+              try { sessionStorage.setItem('is_visited', v); } catch (e3) { /* noop */ }
+            }
+            if (v === 'dark-mode-switch') {
+              document.documentElement.setAttribute('data-bs-theme', 'dark');
+              document.body.setAttribute('data-bs-theme', 'dark');
+            }
+          } catch (e) { /* noop */ }
+        })();
+        </script>
+        <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
+        <a href="#topnav-menu-content" class="skip-link">Pular para o menu de navegação</a>
+
+       <!-- Contexto de layout via SQLAlchemy/API (sem ZSQL): grava cod_* e existe_tipo_emenda_impositiva no REQUEST -->
+       
+
+       
+        <div id="layout-wrapper">
+
+                <div id="sagl-header-root" data-portal-url="https://e-processo.recife.pe.leg.br"></div>
+            <nav id="sagl-header-nojs" class="sagl-nojs-only sagl-noscript-nav border-bottom bg-light" aria-label="Navegação sem JavaScript">
+              <div class="container-fluid py-2 d-flex flex-wrap gap-2 align-items-center">
+                <strong class="me-1">Câmara Municipal do Recife</strong>
+                <a href="https://e-processo.recife.pe.leg.br/default_index_html">Início</a>
+                <span aria-hidden="true">·</span>
+                <a href="https://e-processo.recife.pe.leg.br/consultas/parlamentar">Vereadores</a>
+                <span aria-hidden="true">·</span>
+                <a href="https://e-processo.recife.pe.leg.br/consultas/sessao_plenaria">Reuniões</a>
+                <span aria-hidden="true">·</span>
+                <a href="https://e-processo.recife.pe.leg.br/consultas/materia/pesquisa_materias">Matérias</a>
+                <span aria-hidden="true">·</span>
+                <a href="https://e-processo.recife.pe.leg.br/consultas/norma_juridica/pesquisa_normas">Legislação</a>
+                <span aria-hidden="true">·</span>
+                <a href="https://e-processo.recife.pe.leg.br/@@busca-global">Buscar</a>
+                <span aria-hidden="true">·</span>
+                <a href="https://e-processo.recife.pe.leg.br/conferir_assinatura">Validar documento</a>
+              </div>
+            </nav>
+            <script>
+            (function () {
+              if (!document.documentElement.classList.contains('sagl-js')) return;
+              var n = document.getElementById('sagl-header-nojs');
+              if (n && n.parentNode) n.parentNode.removeChild(n);
+            })();
+            </script>
+
+            
+            <!-- JSON em <script type="application/json">: atributo data-* quebra com payload grande / aspas -->
+            <script type="application/json" id="sagl-contexto-data">{"portal_url": "https://e-processo.recife.pe.leg.br", "casa": {"nom_casa": "Câmara Municipal do Recife", "nome_mesa": "Comissão Executiva", "reuniao_sessao_plural": "Reuniões", "titulo_roteiro": "Roteiro", "logo_url": "https://e-processo.recife.pe.leg.br/@@sapl_documentos_download?path=props_sagl/logo_casa.gif", "logo_alt": "Logo da casa legislativa", "versao_sistema": "v6.4", "tagline_publica": "Transparência e atividade legislativa", "tagline_interna": "Plataforma de Processos Digitais", "ind_home_viva": 1, "end_casa": "Rua Princesa Isabel, 410", "num_cep": "50050-450", "num_tel": "81 3301-1268", "end_email_casa": "e-processo@recife.pe.leg.br", "end_web_casa": "https://www.recife.pe.leg.br", "url_lai": "", "url_ouvidoria": "", "url_privacidade": "", "current_year": "2026"}, "usuario": null, "flags": {"restpki": true, "dbcon_logs": true, "govbr_habilitado": true, "existe_tipo_emenda_impositiva": false, "assinatura_pin_banner": false, "assinatura_solicitacao_toolbar_v2": false, "editor_externo_habilitado": true}, "menu": [{"group": "Autenticidade", "label": "Validação de Documentos", "url": "https://e-processo.recife.pe.leg.br/conferir_assinatura"}], "topnav": [{"id": "topnav-institucional", "label": "Institucional", "icon": "mdi mdi-view-dashboard", "children": [{"label": "Comissão Executiva", "url": "https://e-processo.recife.pe.leg.br/consultas/mesa_diretora"}, {"label": "Galeria de Presidentes", "url": "https://e-processo.recife.pe.leg.br/consultas/presidentes"}, {"label": "Galeria das Vereadoras", "url": "https://e-processo.recife.pe.leg.br/consultas/vereadoras"}]}, {"id": "topnav-vereadores", "label": "Vereadores", "icon": "mdi mdi-account-tie", "children": [{"label": "Legislatura Atual", "url": "https://e-processo.recife.pe.leg.br/consultas/parlamentar"}, {"label": "Frentes Parlamentares", "url": "https://e-processo.recife.pe.leg.br/consultas/bancada/frente_index_html"}, {"label": "Bancadas", "url": "https://e-processo.recife.pe.leg.br/consultas/bancada"}]}, {"id": "topnav-atividade", "label": "Atividade Legislativa", "icon": "mdi mdi-buffer", "children": [{"label": "Pesquisa de Matérias", "url": "https://e-processo.recife.pe.leg.br/consultas/materia/pesquisa_materias"}, {"label": "Reuniões Plenárias", "id": "topnav-sessao", "children": [{"label": "Calendário das Reuniões", "url": "https://e-processo.recife.pe.leg.br/consultas/sessao_plenaria"}, {"label": "Pautas das Reuniões", "url": "https://e-processo.recife.pe.leg.br/consultas/pauta_sessao"}, {"label": "Atas das Reuniões", "url": "https://e-processo.recife.pe.leg.br/consultas/ata_sessao"}]}, {"label": "Comissões", "id": "topnav-comissao", "children": [{"label": "Lista de Comissões", "url": "https://e-processo.recife.pe.leg.br/consultas/comissao"}, {"label": "Pesquisa de Pareceres", "url": "https://e-processo.recife.pe.leg.br/consultas/comissao/pesquisa_pareceres"}, {"label": "Reuniões", "url": "https://e-processo.recife.pe.leg.br/consultas/reuniao_comissao"}]}, {"label": "Audiências Públicas", "url": "https://e-processo.recife.pe.leg.br/consultas/audiencia_publica"}, {"label": "Transparência", "id": "topnav-transparencia", "children": [{"label": "Transmissão", "url": "https://e-processo.recife.pe.leg.br/consultas/transmissao"}, {"label": "Dados abertos", "url": "https://e-processo.recife.pe.leg.br/consultas/dados_abertos"}, {"label": "Contas do Executivo", "url": "https://e-processo.recife.pe.leg.br/consultas/contas_executivo/contas_executivo_index_html"}, {"label": "Verba indenizatória", "url": "https://e-processo.recife.pe.leg.br/consultas/verba_indenizatoria/verba_indenizatoria_index_html"}]}, {"label": "Relatórios Estatísticos", "id": "topnav-relatorios-est", "url": "https://e-processo.recife.pe.leg.br/relatorios_administrativos/relatorios_administrativos_index_html"}]}, {"id": "topnav-leis", "label": "Legislação", "icon": "mdi mdi-scale-balance", "children": [{"label": "Pesquisa de Legislação", "url": "https://e-processo.recife.pe.leg.br/consultas/norma_juridica/pesquisa_normas"}, {"label": "Índice Cronológico", "url": "https://e-processo.recife.pe.leg.br/consultas/legislacao"}, {"label": "Legislação por Assunto", "url": "https://e-processo.recife.pe.leg.br/consultas/norma_juridica/norma_juridica_indice_assunto"}]}, {"id": "topnav-adm", "label": "Processo Administrativo", "icon": "mdi mdi-book-open-page-variant", "children": [{"label": "Pesquisa de Processos", "url": "https://e-processo.recife.pe.leg.br/consultas/documento_administrativo"}, {"label": "Consulta de Protocolo", "url": "https://e-processo.recife.pe.leg.br/consultas/protocolo/consulta_publica"}]}], "badges": {"assinador_pendentes": 0, "caixa_entrada": 0, "proposicao_recusas": 0, "recebimento_proposicoes": 0, "peticionamento_elaboracao": 0, "assinaturas_pendentes_operador": 0, "recebimento_normas": 0, "recebimento_juntadas": 0}}</script>
+            <script src="https://e-processo.recife.pe.leg.br/assets/js/pages/header_chrome.init.js?v=202610262010&hc=202608250135"></script>
+            <!-- defer: libera parse/paint do main (LCP); bootHeader/bootDeferred cobrem header+footer -->
+            <script src="https://e-processo.recife.pe.leg.br/js/sagl_layout.js?v=202610262010&layout=202611101745" defer></script>
+            <script src="https://e-processo.recife.pe.leg.br/js/topnav-mobile.js?v=202610262010" defer></script>
+               <!-- ============================================================== -->
+            <!-- Start right Content here -->
+            <!-- ============================================================== -->
+            <main id="main-content" class="main-content" role="main"
+                  data-sagl-session="">
+                                  <div class="page-content">
+                      <div class="container-fluid" style="min-height:400px;">
+                                
+                                                                   <div id="sagl-breadcrumb-row" class="row mt-2 mb-2 d-print-none">
+                            
+                                <div class="col-12 col-lg-6 col-xl-6 d-none d-lg-block">
+                                    <div class="page-title-box">
+                                        <div class="page-title-left">
+                                            <ol class="breadcrumb m-0">
+                                                <li class="breadcrumb-item"><a href="https://e-processo.recife.pe.leg.br">Início</a></li>
+                                                
+                                                  <li class="breadcrumb-item"><a href="https://e-processo.recife.pe.leg.br/consultas">Consultas</a></li>
+                                                  
+                                                
+                                                  
+                                                  <li class="breadcrumb-item active"><span>Matérias</span></li>
+                                                
+                                            </ol>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-12 col-lg-6 col-xl-6 text-start text-md-end d-flex align-items-center justify-content-start justify-content-md-end">
+                                   <div class="d-inline-flex align-items-center" style="gap: 1.25rem;">
+                                     <a class="btn btn-link text-muted sagl-quick-link p-0 border-0 bg-transparent text-decoration-none shadow-none" href="https://e-processo.recife.pe.leg.br/consultas/sessao_plenaria"><i class="mdi mdi-calendar-month"></i><span> Reuniões </span></a>
+                                     <a class="btn btn-link text-muted sagl-quick-link p-0 border-0 bg-transparent text-decoration-none shadow-none" href="https://e-processo.recife.pe.leg.br/consultas/materia/pesquisa_materias"><i class="mdi mdi-buffer"></i><span class=""> Matérias </span></a>
+                                     <a class="btn btn-link text-muted sagl-quick-link p-0 border-0 bg-transparent text-decoration-none shadow-none" href="https://e-processo.recife.pe.leg.br/consultas/norma_juridica/pesquisa_normas"><i class="mdi mdi-scale-balance"></i><span class=""> Legislação</span></a>
+                                     <a class="btn btn-link text-muted sagl-quick-link p-0 border-0 bg-transparent text-decoration-none shadow-none" href="https://e-processo.recife.pe.leg.br/consultas/documento_administrativo"><i class="mdi mdi-book-open-page-variant"></i><span class=""> Documentos</span></a>
+                                   </div>
+                                </div>
+                            
+                       </div>
+
+                                                                     <div class="col-lg-12 col-xl-12">
+                                <div class="card" >
+                                    <div class="card-body">
+                                    
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<link href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.bootstrap5.css" rel="stylesheet">
+<link href="https://e-processo.recife.pe.leg.br/assets/css/pesquisa_tomselect.css?v=202610262010&pts=202609041500" rel="stylesheet">
+<link href="https://e-processo.recife.pe.leg.br/assets/css/pesquisa_materias.css?v=202610262010&pcm=202610031905" rel="stylesheet">
+
+<!-- Skip Links para Acessibilidade -->
+<a href="#form-pesquisa" class="skip-link">Pular para filtros de pesquisa</a>
+<a href="#container-principal-resultados" class="skip-link">Pular para resultados</a>
+
+<div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1055;"><!-- z-index necessário para sobrepor modais -->
+    <div class="toast" id="filter-cleared-toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <i class="fas fa-fw fa-info-circle text-info me-2"></i>
+            <strong class="me-auto">Informação</strong>
+            <small>Agora</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Fechar"></button>
+        </div>
+        <div class="toast-body">
+            Filtros limpos com sucesso!
+        </div>
+    </div>
+</div>
+
+<div class="row mb-3">
+      <div class="col-12 col-md-8 align-self-center">
+        <h1 class="firstHeading font-size-18 mb-0">Pesquisa de Matérias Legislativas</h1>
+      </div>
+      <div class="col-12 col-md-4 text-start text-md-end d-flex flex-wrap justify-content-md-end align-items-center">
+               </div>
+ </div>
+
+<div class="d-grid gap-2 mb-3">
+    <button class="btn btn-outline-secondary d-none" type="button" id="btn-toggle-filtros" data-bs-toggle="collapse" data-bs-target="#filtro-container" aria-expanded="false" aria-controls="filtro-container" aria-label="Mostrar ou editar filtros">
+        <i class="fas fa-fw fa-filter me-2"></i>Mostrar / Editar Filtros
+    </button>
+</div>
+
+<div id="pesquisa-materias-app"
+  data-sagl-init="saglInitPesquisaMaterias" data-sagl-pesquisa="materias" data-portal-url="https://e-processo.recife.pe.leg.br">
+<form method="get" action="#" id="form-pesquisa" role="search" aria-label="Formulário de pesquisa de matérias legislativas" data-hx-disable="true">
+    <input type="hidden" name="formato" value="" id="formato">
+    <input type="hidden" name="pagina" value="1" id="pagina">
+    <input type="hidden" name="ordem_campo" value="" id="ordem_campo">
+    <input type="hidden" name="ordem_direcao" value="" id="ordem_direcao">
+    <input type="hidden" name="rd_ordem" value="1" id="rd_ordem">
+
+    <div class="collapse show" id="filtro-container">
+        <div class="card mb-4 filtros-basicos-card">
+            <div class="card-header bg-white border-bottom">
+                <h2 class="h5 mb-0 fw-semibold">
+                    <i class="fas fa-fw fa-filter text-primary me-2" aria-hidden="true"></i>Filtros Básicos
+                </h2>
+            </div>
+            <div class="card-body">
+            <div class="row g-3 align-items-start">
+                <div class="col-12 col-md-6">
+                    <label for="tip_id_basica" class="form-label form-label-sm mb-1 fw-semibold">
+                        Tipo de Matéria:
+                    </label>
+                    <select name="tip_id_basica" id="tip_id_basica" class="form-select" multiple 
+                       placeholder="Selecione um ou mais tipos..." data-tomselect aria-label="Selecione tipo de matéria">
+                    </select>
+                </div>
+                <div class="col-6 col-md-3">
+                    <label for="num_ident_basica" class="form-label form-label-sm mb-1 fw-semibold">
+                        Número:
+                    </label>
+                    <input type="text" name="num_ident_basica" id="num_ident_basica" 
+                           class="form-control" 
+                           placeholder="Ex: 123"
+                           inputmode="numeric"
+                           pattern="[0-9]*"
+                           aria-describedby="num_ident_basica_feedback">
+                    <div class="invalid-feedback" id="num_ident_basica_feedback">
+                        Por favor, insira apenas números.
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <label for="ano_ident_basica" class="form-label form-label-sm mb-1 fw-semibold">
+                        Ano:
+                    </label>
+                    <select name="ano_ident_basica" id="ano_ident_basica" class="form-select" aria-label="Selecione o ano" placeholder="Todos"></select>
+                </div>
+            </div>
+            <div class="row g-3 mt-0 align-items-start">
+                <div class="col-12 col-md-6">
+                    <div class="d-flex align-items-center mb-1">
+                        <label for="des_assunto" class="form-label form-label-sm mb-0 fw-semibold">
+                            Assunto ou Ementa:
+                        </label>
+                        <button type="button"
+                                class="btn btn-link btn-sm p-0 ms-1 search-help-popover-btn"
+                                data-bs-toggle="popover"
+                                data-bs-trigger="focus"
+                                data-bs-placement="top"
+                                data-bs-title="Dicas de pesquisa"
+                                data-bs-content="Use aspas para frase exata. * no fim trunca a palavra. + exige a palavra; - exclui. Sem operadores, todas as palavras relevantes devem aparecer (em qualquer ordem). A busca ignora acentos: jose encontra José." aria-label="Dicas de pesquisa">
+                            <i class="fas fa-fw fa-question-circle" aria-hidden="true"></i>
+                            <span class="visually-hidden">Dicas de pesquisa para Assunto ou Ementa</span>
+                        </button>
+                    </div>
+                    <input type="text" name="des_assunto" id="des_assunto" 
+                           class="form-control" 
+                           placeholder="Digite palavras-chave para buscar..."
+                           aria-describedby="des_assunto_feedback">
+                    <small id="des_assunto_feedback" class="form-text text-muted d-none" role="status" aria-live="polite">
+                        <i class="fas fa-fw fa-spinner fa-spin me-1"></i> Buscando...
+                    </small>
+                    <div class="form-check form-switch mt-2">
+                        <input type="checkbox" class="form-check-input" name="chk_textual" id="chk_textual" value="1">
+                        <label class="form-check-label" for="chk_textual">
+                            Pesquisar nos Textos Integrais
+                        </label>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <label for="cod_autor" class="form-label form-label-sm mb-1 fw-semibold">
+                        Autoria:
+                    </label>
+                    <select name="cod_autor" id="cod_autor" 
+                            class="form-select" 
+                            placeholder="Selecione um autor..."
+                            aria-label="Selecione autor"></select>
+                    <div class="d-flex flex-wrap gap-3 mt-2">
+                        <div class="form-check form-check-sm">
+                            <input class="form-check-input" type="checkbox" name="chk_primeiro_autor" id="chk_primeiro_autor" value="1">
+                            <label class="form-check-label" for="chk_primeiro_autor">
+                                Apenas como 1º autor
+                            </label>
+                        </div>
+                        <div class="form-check form-check-sm">
+                            <input class="form-check-input" type="checkbox" name="chk_coautor" id="chk_coautor" value="1">
+                            <label class="form-check-label" for="chk_coautor">
+                                Apenas como coautor
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row g-3 mt-0 align-items-start">
+                <div class="col-12 col-md-6">
+                    <label for="daterange_input" class="form-label form-label-sm mb-1 fw-semibold">
+                        Data de Apresentação:
+                    </label>
+                    <div class="input-group">
+                        <span class="input-group-text" aria-hidden="true"><i class="far fa-calendar"></i></span>
+                        <input type="text"
+                               id="daterange_input"
+                               class="form-control bg-white"
+                               placeholder="Selecione um período..."
+                               aria-label="Período de data de apresentação da matéria">
+                    </div>
+                    <div class="filtros-basicos-presets mt-2" role="group" id="date-presets" aria-label="Atalhos de período de apresentação">
+                        <button type="button" class="btn btn-outline-secondary btn-sm" data-preset="hoje">Hoje</button>
+                        <button type="button" class="btn btn-outline-secondary btn-sm" data-preset="semana">7 dias</button>
+                        <button type="button" class="btn btn-outline-secondary btn-sm" data-preset="mes_atual">Este mês</button>
+                        <button type="button" class="btn btn-outline-secondary btn-sm" data-preset="mes_passado">Mês passado</button>
+                    </div>
+                    <input type="hidden" name="dat_apresentacao" id="dat_apresentacao_hidden">
+                    <input type="hidden" name="dat_apresentacao2" id="dat_apresentacao2_hidden">
+                </div>
+                <div class="col-12 col-md-6">
+                    <label for="cod_status" class="form-label form-label-sm mb-1 fw-semibold">
+                        Situação Atual:
+                    </label>
+                    <select name="cod_status" id="cod_status"
+                            class="form-select"
+                            placeholder="Selecione uma situação..."
+                            aria-label="Situação atual da tramitação">
+                    </select>
+                </div>
+            </div>
+            <div class="row g-3 mt-0">
+                <div class="col-12">
+                    <label for="ordem_opcao" class="form-label mb-2 fw-semibold">
+                        <i class="fas fa-fw fa-sort text-muted me-1"></i>Ordenar por:
+                    </label>
+                    <select name="ordem_opcao" id="ordem_opcao" class="form-select form-select-sm w-auto d-inline-block">
+                        <option value="num_ident_basica_desc" selected>Número/Ano (mais recentes)</option>
+                        <option value="num_ident_basica_asc">Número/Ano (mais antigos)</option>
+                        <option value="dat_apresentacao_desc">Data de apresentação (recentes)</option>
+                        <option value="dat_apresentacao_asc">Data de apresentação (antigos)</option>
+                        <option value="des_tipo_materia_asc">Tipo (A–Z)</option>
+                        <option value="des_tipo_materia_desc">Tipo (Z–A)</option>
+                        <option value="txt_ementa_asc">Ementa (A–Z)</option>
+                        <option value="txt_ementa_desc">Ementa (Z–A)</option>
+                        <option value="autores_asc">Autoria (A–Z)</option>
+                        <option value="autores_desc">Autoria (Z–A)</option>
+                    </select>
+                </div>
+            </div>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-12">
+                <button type="button" 
+                        class="btn btn-link py-2 text-decoration-none d-flex align-items-center" 
+                        id="btn-filtros-avancados"
+                        data-bs-target="#advancedSearch" 
+                        aria-expanded="false" 
+                        aria-controls="advancedSearch"
+                        aria-label="Expandir filtros avançados">
+                    <i class="fas fa-fw fa-chevron-right filter-toggle-icon me-2"></i>
+                    <span class="fw-semibold">Filtros Avançados</span>
+                    <span id="badge-filtros"
+                          class="badge bg-secondary ms-2"
+                          aria-label="Filtros ativos">
+                        0
+                    </span>
+                </button>
+            </div>
+        </div>
+
+        <div id="advancedSearch" class="collapse">
+            <div class="card mt-3 border-0 shadow-sm">
+                <div class="card-header bg-white border-bottom d-flex align-items-center justify-content-between gap-2">
+                    <h2 class="h5 mb-0 fw-semibold">
+                        <i class="fas fa-fw fa-sliders-h text-primary me-2" aria-hidden="true"></i>Filtros Avançados
+                    </h2>
+                    <button type="button"
+                            class="btn btn-sm btn-outline-secondary flex-shrink-0"
+                            id="btn-recolher-filtros-avancados"
+                            aria-label="Recolher filtros avançados">
+                        <i class="fas fa-fw fa-chevron-up me-1" aria-hidden="true"></i>Recolher
+                    </button>
+                </div>
+                <div class="card-body">
+                    <!-- Seção: Identificação -->
+                    <div class="mb-4">
+                        <h3 class="h6 text-uppercase mb-3 fw-semibold border-bottom pb-2 pesquisa-secao-titulo">
+                            <i class="fas fa-fw fa-hashtag me-2"></i>Identificação
+                        </h3>
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label for="filtro_num_protocolo" class="form-label form-label-sm mb-1 fw-semibold">
+                                    Número do Protocolo
+                                </label>
+                                <input type="text" 
+                                       name="filtro_num_protocolo" 
+                                       id="filtro_num_protocolo" 
+                                       class="form-control" 
+                                       placeholder="Ex: 123"
+                                       aria-label="Número do protocolo de entrada da matéria"
+                                       aria-describedby="filtro_num_protocolo_help">
+                                <small id="filtro_num_protocolo_help" class="form-text text-muted">
+                                    Número do protocolo de entrada da matéria no sistema
+                                </small>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="num_processo" class="form-label form-label-sm mb-1 fw-semibold">
+                                    Número do Processo
+                                </label>
+                                <input type="text" 
+                                       name="num_processo" 
+                                       id="num_processo" 
+                                       class="form-control" 
+                                       placeholder="Ex: 456"
+                                       aria-label="Número do processo administrativo da matéria"
+                                       aria-describedby="num_processo_help">
+                                <small id="num_processo_help" class="form-text text-muted">
+                                    Número do processo administrativo relacionado à matéria
+                                </small>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="ind_tramitacao" class="form-label form-label-sm mb-1 fw-semibold">
+                                    Em Tramitação?
+                                </label>
+                                <select name="ind_tramitacao" id="ind_tramitacao" class="form-select">
+                                    <option value="" selected>Tanto faz</option>
+                                    <option value="1">Sim</option>
+                                    <option value="0">Não</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <hr class="my-4">
+                    
+                    <!-- Seção: Datas -->
+                    <div class="mb-4">
+                        <h3 class="h6 text-uppercase mb-3 fw-semibold border-bottom pb-2 pesquisa-secao-titulo">
+                            <i class="fas fa-fw fa-calendar-alt me-2"></i>Datas
+                        </h3>
+                        <div class="row g-3">
+                            <div class="col-12 col-md-6">
+                                <label for="daterange_publicacao" class="form-label form-label-sm mb-1 fw-semibold">
+                                    Data de Publicação
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-text" aria-hidden="true"><i class="far fa-newspaper"></i></span>
+                                    <input type="text" 
+                                           id="daterange_publicacao" 
+                                           class="form-control bg-white" 
+                                           placeholder="Selecione um período..." 
+                                           aria-label="Período de data de publicação da matéria">
+                                </div>
+                                <div class="filtros-basicos-presets mt-2" role="group" id="date-presets-publicacao" aria-label="Atalhos de período de publicação">
+                                    <button type="button" class="btn btn-outline-secondary btn-sm" data-preset="hoje">Hoje</button>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm" data-preset="semana">7 dias</button>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm" data-preset="mes_atual">Este mês</button>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm" data-preset="mes_passado">Mês passado</button>
+                                </div>
+                                <input type="hidden" name="dat_publicacao" id="dat_publicacao_hidden">
+                                <input type="hidden" name="dat_publicacao2" id="dat_publicacao2_hidden">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <hr class="my-4">
+                    
+                    <!-- Seção: Tramitação -->
+                    <div class="mb-4">
+                        <h3 class="h6 text-uppercase mb-3 fw-semibold border-bottom pb-2 pesquisa-secao-titulo">
+                            <i class="fas fa-fw fa-sitemap me-2"></i>Tramitação
+                        </h3>
+                        <div class="row g-3">
+                            <div class="col-12 col-md-6">
+                                <label for="cod_unid_tramitacao" class="form-label form-label-sm mb-1 fw-semibold">
+                                    Localização Atual
+                                </label>
+                                <select name="cod_unid_tramitacao" id="cod_unid_tramitacao" 
+                                        class="form-select" 
+                                        placeholder="Selecione uma unidade..."
+                                        aria-label="Unidade onde a matéria está atualmente">
+                                </select>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label for="cod_unid_tramitacao2" class="form-label form-label-sm mb-1 fw-semibold">
+                                    Tramitou Em
+                                </label>
+                                <select name="cod_unid_tramitacao2" id="cod_unid_tramitacao2" 
+                                        class="form-select" 
+                                        placeholder="Selecione onde tramitou..."
+                                        aria-label="Unidades onde a matéria já tramitou">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <hr class="my-4">
+                    
+                    <!-- Seção: Classificação -->
+                    <div class="mb-4">
+                        <h3 class="h6 text-uppercase mb-3 fw-semibold border-bottom pb-2 pesquisa-secao-titulo">
+                            <i class="fas fa-fw fa-tags me-2"></i>Classificação
+                        </h3>
+                        <div class="row g-3">
+                            <div class="col-md-12">
+                                <label for="lst_assunto_materia" class="form-label form-label-sm mb-1 fw-semibold">
+                                    Assunto / Classificação
+                                </label>
+                                <select name="lst_assunto_materia" id="lst_assunto_materia" class="form-select" placeholder="Selecione um assunto..." aria-label="Selecione um assunto"></select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <hr class="my-4">
+                    
+                    <!-- Seção: Autoria e Relatoria -->
+                    <div class="mb-3">
+                        <h3 class="h6 text-uppercase mb-3 fw-semibold border-bottom pb-2 pesquisa-secao-titulo">
+                            <i class="fas fa-fw fa-users me-2"></i>Autoria e Relatoria
+                        </h3>
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label for="tip_autor" class="form-label form-label-sm mb-1 fw-semibold">
+                                    Tipo de Autor
+                                </label>
+                                <select name="tip_autor" id="tip_autor" class="form-select" placeholder="Selecione um tipo..." aria-label="Tipo de autor"></select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="cod_relator" class="form-label form-label-sm mb-1 fw-semibold">
+                                    Relator
+                                </label>
+                                <select name="cod_relator" id="cod_relator" class="form-select" placeholder="Selecione um relator..." aria-label="Relator"></select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4 align-items-center">
+            <div class="col-12 text-center text-md-end">
+                <button type="submit" 
+                        class="btn btn-primary" 
+                        id="btn-pesquisar"
+                        aria-label="Pesquisar matérias legislativas">
+                    <i class="fas fa-fw fa-search me-1"></i>Pesquisar
+                </button>
+                <button type="button" 
+                        class="btn btn-outline-secondary ms-2 d-none" 
+                        id="btn-limpar" 
+                        aria-label="Limpar filtros de pesquisa">
+                    <i class="fas fa-fw fa-eraser me-1"></i>Limpar
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
+</div>
+
+<div id="resumo-filtros" class="mt-3" role="status" aria-live="polite"></div>
+
+<div id="container-principal-resultados" class="mt-4 d-none">
+    <ul class="nav nav-tabs" id="resultado-tabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="lista-tab" data-bs-toggle="tab" data-bs-target="#resultados-pane" type="button" role="tab" aria-controls="resultados-pane" aria-selected="true">
+                <i class="fas fa-fw fa-list me-2"></i>Resultados
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="grafico-tab" data-bs-toggle="tab" data-bs-target="#grafico-pane" type="button" role="tab" aria-controls="grafico-pane" aria-selected="false">
+                <i class="fas fa-fw fa-chart-bar me-2"></i>Resumo por Tipo
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="grafico-autor-tab" data-bs-toggle="tab" data-bs-target="#grafico-autor-pane" type="button" role="tab" aria-controls="grafico-autor-pane" aria-selected="false">
+                <i class="fas fa-fw fa-users me-2"></i>Resumo por Autor
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="grafico-assunto-tab" data-bs-toggle="tab" data-bs-target="#grafico-assunto-pane" type="button" role="tab" aria-controls="grafico-assunto-pane" aria-selected="false">
+                <i class="fas fa-fw fa-tags me-2"></i>Resumo por Assunto
+            </button>
+        </li>
+    </ul>
+    <div class="tab-content" id="resultado-tabs-content">
+        <div class="tab-pane fade show active" id="resultados-pane" role="tabpanel" aria-labelledby="lista-tab">
+            <div id="resultados" class="pt-3" aria-live="polite"></div>
+        </div>
+        <div class="tab-pane fade" id="grafico-pane" role="tabpanel" aria-labelledby="grafico-tab">
+            <div id="resumo-estatistico" class="p-3">
+                <div class="d-flex justify-content-end mb-2">
+                    <div class="d-flex flex-wrap gap-1 align-items-center" role="group" aria-label="Tipo de gráfico">
+                        <button type="button" class="btn btn-sm btn-outline-secondary active" id="btn-grafico-barra-tipo" data-tipo="bar">
+                            <i class="fas fa-fw fa-chart-bar me-1"></i>Barra
+                        </button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary" id="btn-grafico-pizza-tipo" data-tipo="pie">
+                            <i class="fas fa-fw fa-chart-pie me-1"></i>Pizza
+                        </button>
+                    </div>
+                </div>
+                 <div class="canvas-container">
+                    <canvas id="stats-chart" aria-label="Gráfico de resumo estatístico das matérias"></canvas>
+                 </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="grafico-autor-pane" role="tabpanel" aria-labelledby="grafico-autor-tab">
+            <div id="resumo-estatistico-autor" class="p-3">
+                 <div class="canvas-container">
+                    <canvas id="stats-chart-autor" aria-label="Gráfico de resumo estatístico por autor"></canvas>
+                 </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="grafico-assunto-pane" role="tabpanel" aria-labelledby="grafico-assunto-tab">
+            <div id="resumo-estatistico-assunto" class="p-3">
+                <div class="d-flex justify-content-end mb-2">
+                    <div class="d-flex flex-wrap gap-1 align-items-center" role="group" aria-label="Tipo de gráfico">
+                        <button type="button" class="btn btn-sm btn-outline-secondary active" id="btn-grafico-barra-assunto" data-tipo="bar">
+                            <i class="fas fa-fw fa-chart-bar me-1"></i>Barra
+                        </button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary" id="btn-grafico-pizza-assunto" data-tipo="pie">
+                            <i class="fas fa-fw fa-chart-pie me-1"></i>Pizza
+                        </button>
+                    </div>
+                </div>
+                 <div class="canvas-container">
+                    <canvas id="stats-chart-assunto" aria-label="Gráfico de resumo estatístico por assunto"></canvas>
+                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="painel-sem-resultados" class="mt-4"></div>
+
+<div class="modal fade" id="modalDocumentos" tabindex="-1" aria-labelledby="modalDocumentosLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title h5" id="modalDocumentosLabel">Documentos</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body" id="modalDocumentosBody">
+                <!-- Conteúdo carregado via AJAX -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.min.js"></script>
+<script src="https://e-processo.recife.pe.leg.br/assets/js/pesquisa_tomselect.js?v=202610262010&pts=202609021500"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
+<script src="https://e-processo.recife.pe.leg.br/js/documento_publico_viewer_urls.js?v=202610262010"></script>
+<script src="https://e-processo.recife.pe.leg.br/assets/js/pesquisa_highlight.js?v=202610262010"></script>
+<script src="https://e-processo.recife.pe.leg.br/assets/js/pesquisa_export_colunas.js?v=202610262010&pec=202610241150"></script>
+
+<script src="https://e-processo.recife.pe.leg.br/assets/js/pages/pesquisa_materias.init.js?v=202610262010&pcm=202611032145"></script>
+
+
+                         </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- container-fluid -->
+                </div>
+                <!-- End Page-content -->
+            </main>
+            <!-- end main: footer (contentinfo) fora de main para acessibilidade -->
+                        <!-- Footer Institucional — renderizado via sagl_layout.js (defer) a partir de window.SAGL_CONTEXTO.
+     Se o script ainda não rodou, bootDeferred do sagl_layout preenche #sagl-footer-root. -->
+
+<div id="sagl-footer-root"></div>
+<nav id="sagl-footer-nojs" class="sagl-nojs-only container py-3 border-top" aria-label="Rodapé sem JavaScript">
+  <a href="https://e-processo.recife.pe.leg.br/generico/acessibilidade">Acessibilidade</a>
+  · <a href="https://e-processo.recife.pe.leg.br/generico/privacidade">Privacidade</a>
+  · <a href="https://e-processo.recife.pe.leg.br/consultas/materia/pesquisa_materias">Matérias</a>
+  · <a href="https://e-processo.recife.pe.leg.br/consultas/norma_juridica/pesquisa_normas">Legislação</a>
+</nav>
+<script>
+/* Com JS: remove do DOM (display:none ainda conta no WAVE como redundant link). */
+(function () {
+  if (!document.documentElement.classList.contains('sagl-js')) return;
+  var n = document.getElementById('sagl-footer-nojs');
+  if (n && n.parentNode) n.parentNode.removeChild(n);
+})();
+</script>
+<script src="https://e-processo.recife.pe.leg.br/assets/js/pages/footer_chrome.init.js?v=202610262010&fc=202608302300"></script>
+
+                        </div>
+            <!-- end main content-->
+
+        </div>
+        <!-- END layout-wrapper -->
+
+                <!-- Switches de tema: IDs exigidos pelo app.js; o controlo visível é #sagl-contrast-toggle no header. -->
+        <!-- Labels satisfazem WAVE; aria-hidden tira do árvore acessível (evita inert + foco). -->
+        <div id="sagl-theme-switches" class="visually-hidden" aria-hidden="true" hidden>
+            <label for="light-mode-switch">Modo claro</label>
+            <input type="checkbox" class="theme-choice" id="light-mode-switch" checked tabindex="-1" />
+            <label for="dark-mode-switch">Modo escuro</label>
+            <input type="checkbox" class="theme-choice" id="dark-mode-switch" tabindex="-1"
+                data-bsStyle="https://e-processo.recife.pe.leg.br/assets/css/bootstrap-dark.min.css"
+                data-appStyle="https://e-processo.recife.pe.leg.br/assets/css/app-dark.min.css" />
+        </div>
+   
+<!-- JAVASCRIPT -->
+<script src="https://e-processo.recife.pe.leg.br/js/htmx.min.js?v=202610262010"></script>
+<script src="https://e-processo.recife.pe.leg.br/js/sagl_nav_partial.js?v=202610262010&nav=202611101745"></script>
+<script src="https://e-processo.recife.pe.leg.br/assets/libs/tom-select/tom-select.complete.min.js?v=202610262010&ts=202608201200"></script>
+<script src="https://e-processo.recife.pe.leg.br/assets/js/pesquisa_tomselect.js?v=202610262010&pts=202609021500"></script>
+<script src="https://e-processo.recife.pe.leg.br/assets/libs/jquery/jquery.min.js"></script>
+<script src="https://e-processo.recife.pe.leg.br/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="https://e-processo.recife.pe.leg.br/js/iframeResizer.contentWindow.min.js"></script>
+<script src="https://e-processo.recife.pe.leg.br/assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="https://e-processo.recife.pe.leg.br/assets/libs/bootstrap-datepicker/locales/bootstrap-datepicker.pt-BR.min.js"></script>
+<script src="https://e-processo.recife.pe.leg.br/assets/libs/metismenu/metisMenu.min.js"></script>
+<script src="https://e-processo.recife.pe.leg.br/assets/libs/simplebar/simplebar.min.js"></script>
+<script src="https://e-processo.recife.pe.leg.br/assets/libs/node-waves/waves.min.js"></script>
+<script src="https://e-processo.recife.pe.leg.br/assets/libs/select2/js/select2.min.js"></script>
+<script src="https://e-processo.recife.pe.leg.br/assets/libs/select2/js/i18n/pt-BR.js"></script>
+<script src="https://e-processo.recife.pe.leg.br/assets/libs/spectrum-colorpicker2/spectrum.min.js"></script>
+<script src="https://e-processo.recife.pe.leg.br/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
+<script src="https://e-processo.recife.pe.leg.br/assets/libs/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
+<script src="https://e-processo.recife.pe.leg.br/assets/libs/auto-resize-textarea.js"></script>
+<script type="module">
+    import "https://e-processo.recife.pe.leg.br/assets/libs/bootstrap-show-modal.js"
+</script> 
+<script src="https://e-processo.recife.pe.leg.br/js/sb-pwa.js?v=202610262010&sw=202611031330"></script>
+<!-- form mask -->
+<script src="https://e-processo.recife.pe.leg.br/assets/libs/inputmask/jquery.inputmask.min.js?v=202610262010"></script>
+<script src="https://e-processo.recife.pe.leg.br/assets/libs/inputmask/inputmask.binding.js?v=202610262010"></script>
+<script src="https://e-processo.recife.pe.leg.br/assets/js/pages/form-advanced.init.js"></script>
+<script src="https://e-processo.recife.pe.leg.br/assets/js/app.js?v=202610262010"></script>
+<script src="https://e-processo.recife.pe.leg.br/js/geral.js?v=202610262010"></script>
+
+<!-- DataTables: apenas quando a página define load_datatables (evita carregar em todas as páginas) -->
+<!-- DataTables e dependências: carregar apenas em telas que usam tabelas DataTables -->
+<script src="https://e-processo.recife.pe.leg.br/js/moment.min.js?v=202610262010"></script>
+<script src="https://e-processo.recife.pe.leg.br/assets/libs/datatables.net/js/dataTables.min.js"></script>
+<script src="https://e-processo.recife.pe.leg.br/assets/libs/datatables.net/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://e-processo.recife.pe.leg.br/assets/libs/datatables.net/js/dataTables.responsive.min.js"></script>
+<script src="https://e-processo.recife.pe.leg.br/assets/libs/datatables.net/js/responsive.bootstrap5.js"></script>
+<script src="https://e-processo.recife.pe.leg.br/assets/libs/datatables.net/js/dataTables.select.min.js"></script>
+<script src="https://e-processo.recife.pe.leg.br/assets/libs/datatables.net/js/select.dataTables.js"></script>
+<script src="https://e-processo.recife.pe.leg.br/assets/libs/datatables.net/js/dataTables.rowReorder.min.js"></script>
+<script src="https://e-processo.recife.pe.leg.br/assets/libs/datatables.net/js/dataTables.buttons.min.js"></script>
+<script src="https://e-processo.recife.pe.leg.br/assets/libs/datatables.net/js/buttons.bootstrap5.min.js"></script>
+<script src="https://e-processo.recife.pe.leg.br/assets/libs/datatables.net/js/buttons.colVis.min.js"></script>
+<script src="https://e-processo.recife.pe.leg.br/assets/libs/datatables.net/js/buttons.html5.min.js"></script>
+<script src="https://e-processo.recife.pe.leg.br/assets/libs/jszip/jszip.min.js?v=202610262010"></script>
+<script src="https://e-processo.recife.pe.leg.br/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+<!-- datetime-moment deve vir DEPOIS do DataTables (depende de $.fn.dataTable) -->
+<script src="https://e-processo.recife.pe.leg.br/js/datetime-moment.js"></script>
+<script src="https://e-processo.recife.pe.leg.br/assets/js/pages/datatables.init.js?v=11"></script>
+
+<!-- datetimepicker: plugin jQuery — só depois de jquery.min.js -->
+
+<div id="sagl-js-slot-config" class="d-none"
+     data-portal-url="https://e-processo.recife.pe.leg.br"
+     data-restpki-runtime-v="da2e503cb3c2"
+     data-authenticated="0"
+     data-login-retry="0"
+     data-login-captcha-fail="0"></div>
+
+<!-- Modal -->  
+<div class="modal fade" id="iFrameModal" data-bs-backdrop="static" data-bs-focus="false" tabindex="-1" role="dialog" aria-labelledby="iFrameModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered modal-xl modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-light border-bottom">
+        <p class="h5 modal-title" id="iFrameModalLabel">New message</p>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+      <div class="modal-body position-relative p-0 d-flex flex-column flex-grow-1 overflow-hidden">
+        <div id="iFrameModalPainelContent" class="p-3" style="display: none;"></div>
+        <div id="iFrameModalIframeWrap" class="flex-grow-1 position-relative w-100" style="min-height: 0;">
+          <div id="iFrameModalLoading" class="iFrameModal-loading" hidden role="status" aria-live="polite">
+            <div class="spinner-border text-primary" aria-hidden="true"></div>
+            <p class="mt-2 mb-0">Carregando…</p>
+          </div>
+          <iframe src="" frameborder="0" class="position-absolute top-0 start-0 w-100 h-100" style="border: none;"></iframe>
+        </div>
+      </div>
+        <button type="button" data-bs-dismiss="modal" hidden="hidden" id="close" aria-label="Fechar"><span class="d-none">Fechar</span></button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal dedicado ao viewer público de PDF (F5.2) — não dispara reload do iFrameModal -->
+<div class="modal fade" id="documentoPublicoViewerModal" data-bs-backdrop="static" data-bs-focus="false" tabindex="-1" role="dialog" aria-labelledby="documentoPublicoViewerModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered modal-xl modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-light py-2">
+        <p class="h5 modal-title mb-0" id="documentoPublicoViewerModalLabel">Documento</p>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+      <div class="modal-body position-relative p-0 d-flex flex-column flex-grow-1 overflow-hidden">
+        <div id="documentoPublicoViewerModalIframeWrap" class="flex-grow-1 position-relative w-100" style="min-height: 0;">
+          <iframe id="documentoPublicoViewerModalIframe" src="about:blank" title="Visualização do documento PDF" frameborder="0" class="w-100 h-100" style="border: none; display: block;"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal HTML Markup -->
+<div class="modal fade" id="loginModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="loginModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+              <p class="h5 modal-title" id="loginModalTitle">Login</p>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body">
+                                   <form class="form-horizontal" id="login_form_modal" name="login_form_modal" method="post" action="https://e-processo.recife.pe.leg.br/logged_in">
+                      <input type="hidden" name="came_from" value="" />
+                      <input type="hidden" name="sagl_login_ui" value="modal" />
+                                <div class="mb-3">
+                                    <label class="form-label" for="login_modal_name">Usuário</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text" id="basic-addon1" aria-hidden="true"><i class="far fa-fw fa-user"></i></span>
+                                        <input type="text" class="form-control" id="login_modal_name" name="__ac_name" autocomplete="username" value="" size="30" placeholder="Digite o usuário" required aria-required="true" aria-describedby="basic-addon1">
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label" for="login_modal_password">Senha</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text" id="basic-addon2" aria-hidden="true"><i class="fa fa-fw fa-key"></i></span>
+                                        <input type="password" class="form-control password" id="login_modal_password" name="__ac_password" autocomplete="current-password" placeholder="Digite a senha" required aria-required="true" aria-describedby="basic-addon2 togglePasswordDesc">
+                                        <span class="input-group-text">
+                                          <button type="button" class="btn btn-link p-0 border-0" id="togglePasswordModal" aria-label="Mostrar senha" aria-describedby="togglePasswordDesc">
+                                            <i class="far fa-fw fa-eye-slash" aria-hidden="true"></i>
+                                          </button>
+                                          <span id="togglePasswordDesc" class="visually-hidden">Alternar visibilidade da senha</span>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                
+                                
+
+                                <div class="mb-3 row mt-4">
+                                    <div class="col-sm-6">
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" id="persistent"  name="__ac_persistent" value="1" checked>
+                                            <label class="form-check-label" for="persistent">Lembrar de mim</label>
+                                        </div>
+                                    </div>
+                                    <!-- end col -->
+                                    <div class="col-sm-6 text-end">
+                                        <a href="https://e-processo.recife.pe.leg.br/mail_password_form" class="text-muted font-size-13" data-sagl-partial="0"><i class="mdi mdi-lock"></i> Esqueceu sua senha?</a>
+                                    </div>
+                                    <!-- end col -->
+                                </div>
+                                <!-- end row -->
+
+                                <div class="mb-3 mb-0 row">
+                                    <div class="col-12 mt-2">
+                                        <button class="btn btn-primary w-100 waves-effect waves-light font-size-16" type="submit">Entrar <i class="fas fa-fw fa-sign-in-alt ms-1"></i></button>
+                                    </div>
+                                    <!-- end col -->
+                                </div>
+                                <!-- end row -->
+                            </form>
+                                                                                    <!-- Separador -->
+                            <div class="d-flex align-items-center my-4">
+                                <hr class="flex-grow-1">
+                                <span class="mx-3 text-muted">ou</span>
+                                <hr class="flex-grow-1">
+                            </div>
+                            <div class="text-center d-flex flex-column gap-3">
+                                                                                    <!-- Botão Certificado Digital ICP-Brasil -->
+                                <button type="button" class="br-sign-in medium cert-sign-in" id="btn-cert-sign-in" data-sagl-cert-auth="1">
+                                    <i class="fas fa-fw fa-id-card br-sign-in-icon"></i>
+                                    <span class="br-sign-in-label">Entrar com <strong>Certificado Digital</strong></span>
+                                </button>
+                                                        </div>
+                                                                </div>
+    </div>
+    </div>
+</div>
+<link rel="stylesheet" href="https://e-processo.recife.pe.leg.br/assets/css/login_modal.css?v=202610262010&lm=202609251800">
+
+<script src="https://e-processo.recife.pe.leg.br/assets/js/pages/public_form_publico.init.js?v=202610262010&pfp=202608251957"></script>
+
+<script src="https://e-processo.recife.pe.leg.br/assets/js/pages/login_captcha.init.js?v=202610262010&lc=202609251640"></script>
+<script src="https://e-processo.recife.pe.leg.br/assets/js/pages/certificate_auth.init.js?v=202610262010&ca=202609021800"></script>
+
+<script src="https://e-processo.recife.pe.leg.br/assets/js/pages/painel_votacao_consulta.js?v=202610262010&fv=202608202115"></script>
+<script src="https://e-processo.recife.pe.leg.br/assets/js/pages/js_slot_chrome.init.js?v=202610262010&jsc=202611101745"></script>
+
+
