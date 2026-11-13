@@ -37,5 +37,31 @@
         "status": "Em Tramitação",
         "url_oficial": "https://sapl.recife.pe.leg.br/materia/1203",
         "url_pdf": "https://sapl.recife.pe.leg.br/media/sapl/public/materia/2026/ple-89-2026.pdf"
+    },
+    {
+        "id_sapl": 1204,
+        "identificacao": "REQ 1450/2026",
+        "tipo_materia": "Requerimento",
+        "numero": 1450,
+        "autor": "Samuel Salazar",
+        "ementa": "Solicita serviços de recapeamento asfáltico e drenagem na Rua da Imperatriz e vias adjacentes no bairro da Boa Vista.",
+        "ano": "2026",
+        "tema": "Infraestrutura",
+        "status": "Aprovado",
+        "url_oficial": "https://sapl.recife.pe.leg.br/materia/1204",
+        "url_pdf": "https://sapl.recife.pe.leg.br/media/sapl/public/materia/2026/req-1450-2026.pdf"
+    },
+    {
+        "id_sapl": 1205,
+        "identificacao": "IND 320/2026",
+        "tipo_materia": "Indicação",
+        "numero": 320,
+        "autor": "Romerinho Jatobá",
+        "ementa": "Indica à Emlurb a implantação de nova iluminação em LED na Praça do Derby para maior segurança dos frequentadores.",
+        "ano": "2026",
+        "tema": "Segurança Pública",
+        "status": "Em Tramitação",
+        "url_oficial": "https://sapl.recife.pe.leg.br/materia/1205",
+        "url_pdf": "https://sapl.recife.pe.leg.br/media/sapl/public/materia/2026/ind-320-2026.pdf"
     }
-]
+];
