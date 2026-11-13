@@ -1,1 +1,152 @@
-[]
+[
+    {
+        "identificacao": "PLCV 04/2026",
+        "tipo_materia": "Projeto de Lei Complementar",
+        "numero": 4,
+        "autor": "Cida Pedrosa",
+        "ementa": "Altera dispositivos da Lei de Uso e Ocupação do Solo para incentivar a instalação de telhados verdes em novas edificações.",
+        "ano": "2026",
+        "tema": "Meio Ambiente",
+        "status": "Em Tramitação"
+    },
+    {
+        "identificacao": "PLCV 01/2026",
+        "tipo_materia": "Projeto de Lei Complementar",
+        "numero": 1,
+        "autor": "Samuel Salazar",
+        "ementa": "Dispõe sobre a regularização urbanística e fundiária de interesse social em áreas de especial interesse social no município do Recife.",
+        "ano": "2026",
+        "tema": "Infraestrutura",
+        "status": "Em Tramitação"
+    },
+    {
+        "identificacao": "PLCV 12/2025",
+        "tipo_materia": "Projeto de Lei Complementar",
+        "numero": 12,
+        "autor": "Liana Cirne",
+        "ementa": "Estabelece normas complementares de proteção paisagística e ambiental nas margens do Rio Capibaribe.",
+        "ano": "2025",
+        "tema": "Meio Ambiente",
+        "status": "Aprovado"
+    },
+    {
+        "identificacao": "PLE 89/2026",
+        "tipo_materia": "Projeto de Lei Ordinária",
+        "numero": 89,
+        "autor": "Dani Portela",
+        "ementa": "Dispõe sobre diretrizes para o atendimento humanizado e acolhimento psicológico nas unidades de saúde da rede municipal do Recife.",
+        "ano": "2026",
+        "tema": "Saúde",
+        "status": "Em Tramitação"
+    },
+    {
+        "identificacao": "PLE 142/2026",
+        "tipo_materia": "Projeto de Lei Ordinária",
+        "numero": 142,
+        "autor": "Cida Pedrosa",
+        "ementa": "Institui o Programa Municipal de Fomento à Economia Criativa e Cultura Popular nas comunidades da Zona Norte do Recife.",
+        "ano": "2026",
+        "tema": "Cultura e Esporte",
+        "status": "Em Tramitação"
+    },
+    {
+        "identificacao": "REQ 8150/2026",
+        "tipo_materia": "Requerimento",
+        "numero": 8150,
+        "autor": "Romerinho Jatobá",
+        "ementa": "Solicita operação de recapeamento asfáltico e melhoria na sinalização horizontal na Avenida Norte Miguel Arraes de Alencar.",
+        "ano": "2026",
+        "tema": "Mobilidade Urbana",
+        "status": "Aprovado"
+    },
+    {
+        "identificacao": "REQ 7412/2026",
+        "tipo_materia": "Requerimento",
+        "numero": 7412,
+        "autor": "Dani Portela",
+        "ementa": "Requer à Secretaria de Educação a ampliação de vagas em creches municipais nas comunidades da Zona Oeste do Recife.",
+        "ano": "2026",
+        "tema": "Educação",
+        "status": "Aprovado"
+    },
+    {
+        "identificacao": "PLE 214/2025",
+        "tipo_materia": "Projeto de Lei Ordinária",
+        "numero": 214,
+        "autor": "Dani Portela",
+        "ementa": "Institui o Programa Municipal de Enfrentamento à Violência Política de Gênero e Raça no âmbito do município do Recife.",
+        "ano": "2025",
+        "tema": "Segurança Pública",
+        "status": "Aprovado"
+    },
+    {
+        "identificacao": "REQ 5190/2025",
+        "tipo_materia": "Requerimento",
+        "numero": 5190,
+        "autor": "Dani Portela",
+        "ementa": "Solicita à EMLURB obras de contenção de encostas e aplicação de geomantas nos morros do Ibura e Jordão.",
+        "ano": "2025",
+        "tema": "Infraestrutura",
+        "status": "Aprovado"
+    },
+    {
+        "identificacao": "REQ 6211/2025",
+        "tipo_materia": "Requerimento",
+        "numero": 6211,
+        "autor": "Cida Pedrosa",
+        "ementa": "Requer a revitalização das bibliotecas comunitárias e centros culturais nos bairros de Casa Amarela e Várzea.",
+        "ano": "2025",
+        "tema": "Cultura e Esporte",
+        "status": "Aprovado"
+    },
+    {
+        "identificacao": "REQ 7804/2026",
+        "tipo_materia": "Requerimento",
+        "numero": 7804,
+        "autor": "Eduardo Moura",
+        "ementa": "Indicação ao Presidente da EMLURB para viabilizar a reposição da tampa de galeria e drenagem na Rua Cônego Romeu, bairro de Campo Grande.",
+        "ano": "2026",
+        "tema": "Infraestrutura",
+        "status": "Em Tramitação"
+    },
+    {
+        "identificacao": "REQ 9021/2026",
+        "tipo_materia": "Requerimento",
+        "numero": 9021,
+        "autor": "Felipe Alecrim",
+        "ementa": "Solicita implantação de iluminação em LED e videomonitoramento na Orla de Boa Viagem para reforço da segurança pública.",
+        "ano": "2026",
+        "tema": "Segurança Pública",
+        "status": "Em Tramitação"
+    },
+    {
+        "identificacao": "PLE 112/2026",
+        "tipo_materia": "Projeto de Lei Ordinária",
+        "numero": 112,
+        "autor": "Alcides Teixeira Neto",
+        "ementa": "Cria o corredor exclusivo de transporte público e faixa azul para motociclistas na Avenida Abdias de Carvalho.",
+        "ano": "2026",
+        "tema": "Mobilidade Urbana",
+        "status": "Em Tramitação"
+    },
+    {
+        "identificacao": "MOC 08/2026",
+        "tipo_materia": "Moção",
+        "numero": 8,
+        "autor": "Dani Portela",
+        "ementa": "Moção de Aplausos e Congratulações aos movimentos sociais de defesa dos direitos humanos pelos serviços prestados à cidade.",
+        "ano": "2026",
+        "tema": "Administração e Outros",
+        "status": "Aprovado"
+    },
+    {
+        "identificacao": "IND 45/2026",
+        "tipo_materia": "Indicação",
+        "numero": 45,
+        "autor": "Samuel Salazar",
+        "ementa": "Indicação ao Poder Executivo Municipal sugerindo a criação de programa de apoio à mobilidade ativa de ciclistas.",
+        "ano": "2026",
+        "tema": "Mobilidade Urbana",
+        "status": "Aprovado"
+    }
+]
