@@ -40,36 +40,6 @@
         "status": "Em Tramitação"
     },
     {
-        "identificacao": "PLCV 15/2025",
-        "tipo_materia": "Projeto de Lei Complementar",
-        "numero": 15,
-        "autor": "Romerinho Jatobá",
-        "ementa": "Atualiza dispositivos referentes ao Código Tributário Municipal sobre isenções de IPTU para imóveis com eficiência energética.",
-        "ano": "2025",
-        "tema": "Administração e Outros",
-        "status": "Aprovado"
-    },
-    {
-        "identificacao": "PLCV 14/2025",
-        "tipo_materia": "Projeto de Lei Complementar",
-        "numero": 14,
-        "autor": "Felipe Alecrim",
-        "ementa": "Dispõe sobre normas especiais de segurança contra incêndio e pânico para estabelecimentos de grande circulação.",
-        "ano": "2025",
-        "tema": "Segurança Pública",
-        "status": "Aprovado"
-    },
-    {
-        "identificacao": "PLCV 13/2025",
-        "tipo_materia": "Projeto de Lei Complementar",
-        "numero": 13,
-        "autor": "Ana Lúcia",
-        "ementa": "Institui normas complementares para a gestão democrática nas unidades de ensino da rede municipal.",
-        "ano": "2025",
-        "tema": "Educação",
-        "status": "Aprovado"
-    },
-    {
         "identificacao": "PLCV 12/2025",
         "tipo_materia": "Projeto de Lei Complementar",
         "numero": 12,
@@ -77,46 +47,6 @@
         "ementa": "Estabelece normas complementares de proteção paisagística e ambiental nas margens do Rio Capibaribe.",
         "ano": "2025",
         "tema": "Meio Ambiente",
-        "status": "Aprovado"
-    },
-    {
-        "identificacao": "PLCV 10/2025",
-        "tipo_materia": "Projeto de Lei Complementar",
-        "numero": 10,
-        "autor": "Cida Pedrosa",
-        "ementa": "Altera o Estatuto dos Servidores Públicos Municipais para ampliar direitos de licença-paternidade e adoção.",
-        "ano": "2025",
-        "tema": "Administração e Outros",
-        "status": "Aprovado"
-    },
-    {
-        "identificacao": "PLCV 08/2025",
-        "tipo_materia": "Projeto de Lei Complementar",
-        "numero": 8,
-        "autor": "Jô Cavalcanti",
-        "ementa": "Dispõe sobre incentivos fiscais para cooperativas de reciclagem e catadores de materiais reutilizáveis.",
-        "ano": "2025",
-        "tema": "Meio Ambiente",
-        "status": "Aprovado"
-    },
-    {
-        "identificacao": "PLCV 05/2025",
-        "tipo_materia": "Projeto de Lei Complementar",
-        "numero": 5,
-        "autor": "Eduardo Moura",
-        "ementa": "Modifica parâmetros de zoneamento urbano para implantação de polos de desenvolvimento tecnológico e inovação.",
-        "ano": "2025",
-        "tema": "Infraestrutura",
-        "status": "Aprovado"
-    },
-    {
-        "identificacao": "PLCV 02/2025",
-        "tipo_materia": "Projeto de Lei Complementar",
-        "numero": 2,
-        "autor": "Alcides Teixeira Neto",
-        "ementa": "Atualiza dispositivos da legislação de trânsito municipal relativos a cargas e descargas no polo comercial central.",
-        "ano": "2025",
-        "tema": "Mobilidade Urbana",
         "status": "Aprovado"
     },
     {
@@ -130,11 +60,111 @@
         "status": "Em Tramitação"
     },
     {
+        "identificacao": "PLE 142/2026",
+        "tipo_materia": "Projeto de Lei Ordinária",
+        "numero": 142,
+        "autor": "Dani Portela",
+        "ementa": "Institui o Programa Municipal de Fomento à Economia Criativa e Cultura Popular nas comunidades da Zona Norte do Recife.",
+        "ano": "2026",
+        "tema": "Cultura e Esporte",
+        "status": "Em Tramitação"
+    },
+    {
+        "identificacao": "PLE 214/2025",
+        "tipo_materia": "Projeto de Lei Ordinária",
+        "numero": 214,
+        "autor": "Dani Portela",
+        "ementa": "Institui o Programa Municipal de Enfrentamento à Violência Política de Gênero e Raça no âmbito do município do Recife.",
+        "ano": "2025",
+        "tema": "Segurança Pública",
+        "status": "Aprovado"
+    },
+    {
+        "identificacao": "REQ 5190/2025",
+        "tipo_materia": "Requerimento",
+        "numero": 5190,
+        "autor": "Dani Portela",
+        "ementa": "Solicita à EMLURB obras de contenção de encostas e aplicação de geomantas nos morros do Ibura e Jordão.",
+        "ano": "2025",
+        "tema": "Infraestrutura",
+        "status": "Aprovado"
+    },
+    {
+        "identificacao": "REQ 7412/2026",
+        "tipo_materia": "Requerimento",
+        "numero": 7412,
+        "autor": "Dani Portela",
+        "ementa": "Requer à Secretaria de Educação a ampliação de vagas em creches municipais nas comunidades da Zona Oeste do Recife.",
+        "ano": "2026",
+        "tema": "Educação",
+        "status": "Aprovado"
+    },
+    {
+        "identificacao": "IND 18/2026",
+        "tipo_materia": "Indicação",
+        "numero": 18,
+        "autor": "Dani Portela",
+        "ementa": "Indica ao Executivo Municipal a criação de patrulha de proteção à mulher nos polos multiculturais do Recife.",
+        "ano": "2026",
+        "tema": "Segurança Pública",
+        "status": "Em Tramitação"
+    },
+    {
+        "identificacao": "MOC 12/2026",
+        "tipo_materia": "Moção",
+        "numero": 12,
+        "autor": "Dani Portela",
+        "ementa": "Moção de Apoio às iniciativas comunitárias de segurança alimentar e combate à fome nas periferias.",
+        "ano": "2026",
+        "tema": "Administração e Outros",
+        "status": "Aprovado"
+    },
+    {
         "identificacao": "REQ 8150/2026",
         "tipo_materia": "Requerimento",
         "numero": 8150,
         "autor": "Romerinho Jatobá",
         "ementa": "Solicita operação de recapeamento asfáltico e melhoria na sinalização horizontal na Avenida Norte Miguel Arraes de Alencar.",
+        "ano": "2026",
+        "tema": "Mobilidade Urbana",
+        "status": "Aprovado"
+    },
+    {
+        "identificacao": "REQ 7804/2026",
+        "tipo_materia": "Requerimento",
+        "numero": 7804,
+        "autor": "Eduardo Moura",
+        "ementa": "Indicação ao Presidente da EMLURB para viabilizar a reposição da tampa de galeria e drenagem na Rua Cônego Romeu, bairro de Campo Grande.",
+        "ano": "2026",
+        "tema": "Infraestrutura",
+        "status": "Em Tramitação"
+    },
+    {
+        "identificacao": "REQ 9021/2026",
+        "tipo_materia": "Requerimento",
+        "numero": 9021,
+        "autor": "Felipe Alecrim",
+        "ementa": "Solicita implantação de iluminação em LED e videomonitoramento na Orla de Boa Viagem para reforço da segurança pública.",
+        "ano": "2026",
+        "tema": "Segurança Pública",
+        "status": "Em Tramitação"
+    },
+    {
+        "identificacao": "PLE 112/2026",
+        "tipo_materia": "Projeto de Lei Ordinária",
+        "numero": 112,
+        "autor": "Alcides Teixeira Neto",
+        "ementa": "Cria o corredor exclusivo de transporte público e faixa azul para motociclistas na Avenida Abdias de Carvalho.",
+        "ano": "2026",
+        "tema": "Mobilidade Urbana",
+        "status": "Em Tramitação"
+    },
+    {
+        "identificacao": "IND 45/2026",
+        "tipo_materia": "Indicação",
+        "numero": 45,
+        "autor": "Samuel Salazar",
+        "ementa": "Indicação ao Poder Executivo Municipal sugerindo a criação de programa de apoio à mobilidade ativa de ciclistas.",
         "ano": "2026",
         "tema": "Mobilidade Urbana",
         "status": "Aprovado"
