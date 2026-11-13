@@ -23,8 +23,8 @@
             </div>
             <div class="mt-4 md:mt-0">
                 <span id="badge-status"
-                    class="bg-blue-800 text-blue-100 text-xs font-semibold px-3 py-1.5 rounded-full border border-blue-700">
-                    ⚡ Sincronizando dados oficiais...
+                    class="bg-emerald-800 text-emerald-100 text-xs font-semibold px-3 py-1.5 rounded-full border border-emerald-700">
+                    ⚡ Base Consolidada Ativa
                 </span>
             </div>
         </div>
@@ -69,7 +69,7 @@
                     <h3 class="text-lg font-semibold text-gray-800 mb-1 flex items-center gap-2">
                         🏆 Ranking de Produtividade
                     </h3>
-                    <p class="text-xs text-gray-400 mb-4">Top 10 autores no filtro atual</p>
+                    <p class="text-xs text-gray-400 mb-4">Top autores no filtro atual</p>
                     <div id="listaRanking" class="space-y-3">
                         <p class="text-gray-400 text-xs text-center py-4">Calculando ranking...</p>
                     </div>
@@ -169,7 +169,11 @@
             { "identificacao": "REQ 6510/2026", "tipo_materia": "Requerimento", "numero": 6510, "autor": "Samuel Salazar", "ementa": "Solicita à CTTU a instalação de semáforo inteligente e faixa de pedestres elevada em frente ao Hospital da Restauração.", "ano": "2026", "tema": "Mobilidade Urbana", "status": "Aprovado" },
             { "identificacao": "PLE 21/2025", "tipo_materia": "Projeto de Lei Ordinária", "numero": 21, "autor": "Jô Cavalcanti", "ementa": "Institui a política municipal de apoio às mulheres empreendedoras e feirantes dos mercados públicos do Recife.", "ano": "2025", "tema": "Administração e Outros", "status": "Aprovado" },
             { "identificacao": "REQ 3980/2025", "tipo_materia": "Requerimento", "numero": 3980, "autor": "Zé Neto", "ementa": "Requer limpeza de canais e desobstrução de galerias pluviais no bairro do Ibura antes do período de chuvas.", "ano": "2025", "tema": "Infraestrutura", "status": "Aprovado" },
-            { "identificacao": "PLE 18/2025", "tipo_materia": "Projeto de Lei Ordinária", "numero": 18, "autor": "Kari Santos", "ementa": "Dispõe sobre a criação de centros comunitários de inclusão digital e reforço escolar para jovens da periferia.", "ano": "2025", "tema": "Educação", "status": "Em Tramitação" }
+            { "identificacao": "PLE 18/2025", "tipo_materia": "Projeto de Lei Ordinária", "numero": 18, "autor": "Kari Santos", "ementa": "Dispõe sobre a criação de centros comunitários de inclusão digital e reforço escolar para jovens da periferia.", "ano": "2025", "tema": "Educação", "status": "Em Tramitação" },
+            { "identificacao": "PDL 12/2026", "tipo_materia": "Projeto de Decreto Legislativo", "numero": 12, "autor": "Romerinho Jatobá", "ementa": "Concede Título de Cidadão Recifense a personalidades de destaque na área cultural e científica do Estado de Pernambuco.", "ano": "2026", "tema": "Cultura e Esporte", "status": "Aprovado" },
+            { "identificacao": "REQ 9540/2026", "tipo_materia": "Requerimento", "numero": 9540, "autor": "Eduardo Moura", "ementa": "Solicita ronda escolar ostensiva da Guarda Municipal nos entornos da rede pública de ensino na Imbiribeira.", "ano": "2026", "tema": "Segurança Pública", "status": "Em Tramitação" },
+            { "identificacao": "PLCV 04/2026", "tipo_materia": "Projeto de Lei Complementar", "numero": 4, "autor": "Cida Pedrosa", "ementa": "Altera dispositivos da Lei de Uso e Ocupação do Solo para incentivar a instalação de telhados verdes em novas edificações.", "ano": "2026", "tema": "Meio Ambiente", "status": "Em Tramitação" },
+            { "identificacao": "MOC 08/2026", "tipo_materia": "Moção", "numero": 8, "autor": "Dani Portela", "ementa": "Moção de Aplausos e Congratulações aos movimentos sociais de defesa dos direitos humanos pelos serviços prestados à cidade.", "ano": "2026", "tema": "Administração e Outros", "status": "Aprovado" }
         ];
 
         let dadosProjetos = [];
@@ -184,6 +188,7 @@
                     if (Array.isArray(dadosApi) && dadosApi.length > 0) {
                         dadosProjetos = dadosApi;
                         badge.textContent = `⚡ API Oficial (${dadosProjetos.length} registros)`;
+                        badge.className = "bg-blue-800 text-blue-100 text-xs font-semibold px-3 py-1.5 rounded-full border border-blue-700";
                         popularFiltroTipos(dadosProjetos);
                         atualizarInterface(dadosProjetos);
                         return;
@@ -192,7 +197,8 @@
                 throw new Error('JSON vazio');
             } catch (erro) {
                 dadosProjetos = baseContingencia;
-                badge.textContent = "⚡ Base Consolidada";
+                badge.textContent = "⚡ Base Consolidada Ativa";
+                badge.className = "bg-emerald-800 text-emerald-100 text-xs font-semibold px-3 py-1.5 rounded-full border border-emerald-700";
                 popularFiltroTipos(dadosProjetos);
                 atualizarInterface(dadosProjetos);
             }
