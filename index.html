@@ -86,8 +86,12 @@
                     </div>
                 </div>
 
+                <!-- Dica para o usuário -->
+                <p class="text-xs text-gray-400 mb-3">💡 Clique em qualquer card abaixo para ver o texto completo e
+                    detalhes da matéria.</p>
+
                 <!-- Lista de Resultados -->
-                <div id="listaProjetos" class="space-y-4 max-h-[450px] overflow-y-auto pr-2">
+                <div id="listaProjetos" class="space-y-4 max-h-[420px] overflow-y-auto pr-2">
                     <p class="text-gray-500 text-sm text-center py-8">Carregando matérias legislativas...</p>
                 </div>
             </div>
@@ -95,12 +99,42 @@
 
     </main>
 
+    <!-- Modal de Detalhes do Projeto -->
+    <div id="modalDetalhes"
+        class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-xl max-w-2xl w-full p-6 shadow-2xl relative transform transition-all">
+            <button onclick="fecharModal()"
+                class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl font-bold">&times;</button>
+            <div class="mb-4">
+                <span id="modalId" class="text-xs font-bold text-blue-700 bg-blue-50 px-2.5 py-1 rounded"></span>
+                <span id="modalAno" class="text-xs text-gray-500 font-medium ml-2"></span>
+            </div>
+            <h3 id="modalAutor" class="text-sm font-semibold text-indigo-900 mb-2"></h3>
+            <p id="modalEmenta"
+                class="text-gray-800 text-base mb-6 leading-relaxed bg-gray-50 p-4 rounded-lg border border-gray-100">
+            </p>
+
+            <div class="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-gray-100">
+                <div class="flex gap-2">
+                    <span id="modalTema"
+                        class="text-xs bg-emerald-50 text-emerald-700 px-3 py-1 rounded-full font-medium"></span>
+                    <span id="modalStatus"
+                        class="text-xs bg-amber-50 text-amber-700 px-3 py-1 rounded-full font-medium"></span>
+                </div>
+                <a id="modalLinkOficial" href="https://sapl.recife.pe.leg.br" target="_blank"
+                    class="bg-blue-900 hover:bg-blue-800 text-white text-xs px-4 py-2 rounded-lg font-medium transition-colors flex items-center gap-1.5">
+                    🔗 Ver no Portal SAPL Recife
+                </a>
+            </div>
+        </div>
+    </div>
+
     <!-- Rodapé -->
     <footer class="bg-white border-t border-gray-200 mt-12 py-6 text-center text-sm text-gray-500">
         <p>Fiscaliza Recife &copy; 2026 — Transparência Legislativa Aberta para o Cidadão.</p>
     </footer>
 
-    <!-- Lógica JavaScript com Fallback Garantido -->
+    <!-- Lógica JavaScript Interativa -->
     <script>
         const baseContingencia = [
             { "identificacao": "REQ 7804/2026", "numero": 7804, "autor": "Eduardo Moura", "ementa": "Indicação ao Presidente da EMLURB para viabilizar a reposição da tampa de galeria e drenagem na Rua Cônego Romeu, bairro de Campo Grande.", "ano": "2026", "tema": "Infraestrutura", "status": "Em Tramitação" },
@@ -123,7 +157,6 @@
         async function iniciarPainel() {
             const badge = document.getElementById('badge-status');
             try {
-                // Tenta buscar o JSON gerado pelo robô evitando cache
                 const resposta = await fetch(`./dados.json?t=${new Date().getTime()}`);
                 if (resposta.ok) {
                     const dadosApi = await resposta.json();
@@ -134,11 +167,10 @@
                         return;
                     }
                 }
-                throw new Error('JSON vazio ou indisponível');
+                throw new Error('JSON vazio');
             } catch (erro) {
-                // Ativa a base de contingência se o dados.json vier vazio por bloqueio da API da Câmara
                 dadosProjetos = baseContingencia;
-                badge.textContent = "⚡ Base Legislativa Consolidada";
+                badge.textContent = "⚡ Base Consolidada";
                 atualizarInterface(dadosProjetos);
             }
         }
@@ -158,24 +190,51 @@
                 return;
             }
 
-            const itensParaMostrar = itens.slice(0, 150);
-
-            itensParaMostrar.forEach(item => {
+            itens.slice(0, 150).forEach((item, index) => {
                 const div = document.createElement('div');
-                div.className = 'p-4 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors bg-white shadow-xs';
+                div.className = 'p-4 border border-gray-100 rounded-lg hover:border-blue-400 hover:bg-blue-50/30 transition-all cursor-pointer bg-white shadow-xs';
                 div.innerHTML = `
                     <div class="flex justify-between items-start mb-1">
                         <span class="text-xs font-bold text-blue-700 bg-blue-50 px-2.5 py-1 rounded">${item.identificacao}</span>
                         <span class="text-xs text-gray-500 font-medium">${item.ano || 'Recente'}</span>
                     </div>
-                    <p class="text-sm font-semibold text-gray-800 mt-2">${item.ementa}</p>
+                    <p class="text-sm font-semibold text-gray-800 mt-2 line-clamp-2">${item.ementa}</p>
                     <div class="mt-3 flex items-center justify-between text-xs text-gray-600">
                         <span class="font-medium text-gray-700">👤 Vereador(a): ${item.autor}</span>
                         <span class="bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded">${item.tema}</span>
                     </div>
                 `;
+                // Adiciona o evento de clique para abrir o modal
+                div.addEventListener('click', () => abrirModal(item));
                 container.appendChild(div);
             });
+        }
+
+        function abrirModal(item) {
+            document.getElementById('modalId').textContent = item.identificacao;
+            document.getElementById('modalAno').textContent = `Ano: ${item.ano || 'N/D'}`;
+            document.getElementById('modalAutor').textContent = `👤 Autor(a): ${item.autor}`;
+            document.getElementById('modalEmenta').textContent = item.ementa;
+            document.getElementById('modalTema').textContent = `Tema: ${item.tema}`;
+            document.getElementById('modalStatus').textContent = `Status: ${item.status || 'Em Tramitação'}`;
+
+            // Link direto para pesquisa no portal da Câmara
+            const queryBusca = encodeURIComponent(item.identificacao);
+            document.getElementById('modalLinkOficial').href = `https://sapl.recife.pe.leg.br/materia/pesquisar-materia?pesquisa_avancada=1`;
+
+            document.getElementById('modalDetalhes').classList.remove('hidden');
+        }
+
+        function fecharModal() {
+            document.getElementById('modalDetalhes').classList.add('hidden');
+        }
+
+        // Fecha o modal ao clicar fora dele
+        window.onclick = function (event) {
+            const modal = document.getElementById('modalDetalhes');
+            if (event.target === modal) {
+                fecharModal();
+            }
         }
 
         function atualizarContador(total) {
@@ -194,9 +253,7 @@
 
             const ctx = document.getElementById('graficoTemas').getContext('2d');
 
-            if (meuGrafico) {
-                meuGrafico.destroy();
-            }
+            if (meuGrafico) meuGrafico.destroy();
 
             meuGrafico = new Chart(ctx, {
                 type: 'doughnut',
@@ -227,20 +284,9 @@
             const anoSelecionado = document.getElementById('filtroAno').value;
 
             const filtrados = dadosProjetos.filter(item => {
-                const textoCompleto = [
-                    item.autor || '',
-                    item.ementa || '',
-                    item.identificacao || '',
-                    item.tema || '',
-                    item.status || ''
-                ].join(' ').toLowerCase();
-
+                const textoCompleto = [item.autor || '', item.ementa || '', item.identificacao || '', item.tema || ''].join(' ').toLowerCase();
                 const ano = String(item.ano || '');
-
-                const matchTexto = termo === '' || textoCompleto.includes(termo);
-                const matchAno = anoSelecionado === 'todos' || ano === anoSelecionado;
-
-                return matchTexto && matchAno;
+                return (termo === '' || textoCompleto.includes(termo)) && (anoSelecionado === 'todos' || ano === anoSelecionado);
             });
 
             atualizarInterface(filtrados);
@@ -249,7 +295,6 @@
         document.getElementById('inputBusca').addEventListener('input', filtrarDados);
         document.getElementById('filtroAno').addEventListener('change', filtrarDados);
 
-        // Inicia imediatamente
         iniciarPainel();
     </script>
 </body>
