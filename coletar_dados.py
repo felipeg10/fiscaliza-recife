@@ -32,7 +32,22 @@ def classificar_tema(ementa):
     return "Administração e Outros"
 
 def coletar_tudo():
-    print("1. Mapeando autores da Câmara do Recife...")
+    print("1. Mapeando tipos de matéria legislativa...")
+    tipos_map = {}
+    url_tipos = f"{BASE_URL}/materia/tipomaterialegislativa/?page_size=200"
+    while url_tipos:
+        try:
+            dados = buscar_json(url_tipos)
+            results = dados.get('results', dados) if isinstance(dados, dict) else dados
+            for t in results:
+                tipos_map[t.get('id')] = t.get('descricao', 'Outros')
+            url_tipos = dados.get('pagination', {}).get('links', {}).get('next') if isinstance(dados, dict) else None
+        except Exception as e:
+            print(f"Aviso ao buscar tipos: {e}")
+            break
+
+    print(f"Total de tipos mapeados: {len(tipos_map)}")
+    print("2. Mapeando autores da Câmara do Recife...")
     autores_map = {}
     url_autores = f"{BASE_URL}/base/autor/?page_size=200"
     
@@ -42,14 +57,13 @@ def coletar_tudo():
             results = dados.get('results', dados) if isinstance(dados, dict) else dados
             for autor in results:
                 autores_map[autor.get('id')] = autor.get('nome', 'Parlamentar')
-            # Paginação segura
             url_autores = dados.get('pagination', {}).get('links', {}).get('next') if isinstance(dados, dict) else None
         except Exception as e:
             print(f"Aviso ao buscar autores: {e}")
             break
 
     print(f"Total de autores mapeados: {len(autores_map)}")
-    print("2. Coletando matérias legislativas...")
+    print("3. Coletando matérias legislativas...")
     
     projetos_formatados = []
     url_materias = f"{BASE_URL}/materia/materialegislativa/?ordering=-ano,-id&page_size=100"
@@ -66,6 +80,9 @@ def coletar_tudo():
                 nomes_autores = [autores_map.get(aid, "Mesa Diretora / Parlamentar") for aid in autores_ids]
                 autor_str = ", ".join(nomes_autores) if nomes_autores else "Parlamentar"
 
+                tipo_id = m.get('tipo')
+                tipo_nome = tipos_map.get(tipo_id, "Matéria Legislativa")
+
                 ementa = m.get('ementa', 'Sem ementa cadastrada.')
                 tipo_sigla = m.get('__str__', '').split(' ')[0] if m.get('__str__') else 'MAT'
                 numero = m.get('numero', '')
@@ -73,6 +90,7 @@ def coletar_tudo():
 
                 projetos_formatados.append({
                     "identificacao": m.get('__str__', f"{tipo_sigla} {numero}/{ano}"),
+                    "tipo_materia": tipo_nome,
                     "numero": numero,
                     "autor": autor_str,
                     "ementa": ementa,
@@ -88,7 +106,6 @@ def coletar_tudo():
             print(f"Erro na página {paginas_coletadas + 1}: {e}")
             break
 
-    # Salva diretamente como uma lista pura de JSON
     with open("dados.json", "w", encoding="utf-8") as f:
         json.dump(projetos_formatados, f, ensure_ascii=False, indent=2)
 

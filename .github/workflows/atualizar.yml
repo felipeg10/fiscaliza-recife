@@ -1,31 +1,29 @@
-name: Atualizar Dados Câmara do Recife
+name: Atualizar Dados do SAPL Recife
 
 on:
   schedule:
-    - cron: '0 6 * * *' # Roda automaticamente todo dia às 03h da manhã (horário de Brasília)
-  workflow_dispatch:     # Permite clicar em um botão no GitHub para rodar na hora
-
-permissions:
-  contents: write
+    - cron: '0 8 * * *' # Roda todo dia às 08:00 UTC
+  workflow_dispatch: # Permite rodar manualmente pelo site do GitHub
 
 jobs:
   atualizar:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
-      - name: Baixar repositório
-        uses: actions/checkout@v4
+      - name: Copiar repositório
+        uses: actions/checkout@v3
 
       - name: Configurar Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v4
         with:
-          python-version: '3.11'
+          python-version: '3.10'
 
-      - name: Executar coleta da API da Câmara
+      - name: Executar script de coleta
         run: python coletar_dados.py
 
-      - name: Salvar e publicar dados atualizados
-        run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "GitHub Actions"
-          git add dados.json
-          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: atualiza base legislativa oficial" && git push)
+      - name: Enviar dados atualizados para o GitHub
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "🤖 Atualização automática dos dados legislativos"
+          file_pattern: dados.json
