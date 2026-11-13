@@ -24,6 +24,9 @@
             color: var(--text-main);
             margin: 0;
             padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         header {
@@ -60,11 +63,14 @@
 
         .container {
             max-width: 1400px;
+            width: 100%;
             margin: 32px auto;
             padding: 0 24px;
+            box-sizing: border-box;
             display: grid;
             grid-template-columns: 1fr 360px;
             gap: 32px;
+            flex: 1;
         }
 
         @media (max-width: 1024px) {
@@ -249,6 +255,20 @@
             color: var(--accent-green);
             font-size: 13px;
         }
+
+        footer {
+            background-color: var(--bg-surface);
+            border-top: 1px solid var(--border-color);
+            padding: 24px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 13px;
+            margin-top: auto;
+        }
+
+        footer p {
+            margin: 0 0 6px 0;
+        }
     </style>
 </head>
 
@@ -294,6 +314,13 @@
         </div>
     </div>
 
+    <footer>
+        <p><strong>Fiscaliza Recife</strong> — Plataforma independente de auditoria e controle social do legislativo
+            municipal.</p>
+        <p>Dados extraídos diretamente do Sistema de Apoio ao Processo Legislativo (SAPL) da Câmara Municipal do Recife.
+            Em caso de divergência técnica, prevalecem os registros oficiais da Casa.</p>
+    </footer>
+
     <script>
         let dadosGlobais = [];
 
@@ -331,7 +358,6 @@
             }
 
             dados.forEach(item => {
-                // Garante que os links funcionem e apareçam em todos os cards
                 const urlPdf = (item.url_pdf && item.url_pdf.trim() !== '') ? item.url_pdf : `https://sapl.recife.pe.leg.br/materia/${item.id_sapl || '1201'}`;
                 const urlOficial = (item.url_oficial && item.url_oficial.trim() !== '') ? item.url_oficial : `https://sapl.recife.pe.leg.br/materia/${item.id_sapl || '1201'}`;
 
