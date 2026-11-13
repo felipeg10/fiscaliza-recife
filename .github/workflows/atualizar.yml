@@ -1,0 +1,31 @@
+name: Atualizar Dados Câmara do Recife
+
+on:
+  schedule:
+    - cron: '0 6 * * *' # Roda automaticamente todo dia às 03h da manhã (horário de Brasília)
+  workflow_dispatch:     # Permite clicar em um botão no GitHub para rodar na hora
+
+permissions:
+  contents: write
+
+jobs:
+  atualizar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Executar coleta da API da Câmara
+        run: python coletar_dados.py
+
+      - name: Salvar e publicar dados atualizados
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "GitHub Actions"
+          git add dados.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: atualiza base legislativa oficial" && git push)
