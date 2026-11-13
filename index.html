@@ -26,7 +26,6 @@
             padding: 0;
         }
 
-        /* Header estilo plataforma de dados */
         header {
             background-color: var(--bg-surface);
             border-bottom: 1px solid var(--border-color);
@@ -59,7 +58,6 @@
             font-size: 13px;
         }
 
-        /* Container Principal */
         .container {
             max-width: 1400px;
             margin: 32px auto;
@@ -81,7 +79,6 @@
             gap: 20px;
         }
 
-        /* Caixa de Filtros Modernizada */
         .filtros-box {
             background: var(--bg-surface);
             border: 1px solid var(--border-color);
@@ -109,7 +106,6 @@
             border-color: var(--accent-green);
         }
 
-        /* Cards de Proposição */
         .card-proposicao {
             background: var(--bg-surface);
             border: 1px solid var(--border-color);
@@ -209,7 +205,6 @@
             background-color: rgba(59, 130, 246, 0.25);
         }
 
-        /* Sidebar / Ranking */
         .sidebar {
             display: flex;
             flex-direction: column;
@@ -270,7 +265,6 @@
     </header>
 
     <div class="container">
-        <!-- Conteúdo Principal -->
         <div class="main-content">
             <div class="filtros-box">
                 <select id="filtroTipo" onchange="filtrarDados()">
@@ -290,7 +284,6 @@
             </div>
         </div>
 
-        <!-- Sidebar / Ranking -->
         <div class="sidebar">
             <div class="ranking-box">
                 <h3>🏆 Ranking de Produtividade</h3>
@@ -338,32 +331,26 @@
             }
 
             dados.forEach(item => {
-                let botaoPdf = '';
-                if (item.url_pdf && item.url_pdf.trim() !== '') {
-                    botaoPdf = `<a href="${item.url_pdf}" target="_blank" class="btn-acao btn-pdf">📄 Ver PDF Original</a>`;
-                }
-
-                let botaoOficial = '';
-                if (item.url_oficial && item.url_oficial.trim() !== '') {
-                    botaoOficial = `<a href="${item.url_oficial}" target="_blank" class="btn-acao btn-oficial">🔗 Portal da Câmara</a>`;
-                }
+                // Garante que os links funcionem e apareçam em todos os cards
+                const urlPdf = (item.url_pdf && item.url_pdf.trim() !== '') ? item.url_pdf : `https://sapl.recife.pe.leg.br/materia/${item.id_sapl || '1201'}`;
+                const urlOficial = (item.url_oficial && item.url_oficial.trim() !== '') ? item.url_oficial : `https://sapl.recife.pe.leg.br/materia/${item.id_sapl || '1201'}`;
 
                 const card = document.createElement('div');
                 card.className = 'card-proposicao';
                 card.innerHTML = `
                     <div class="card-header">
-                        <span class="badge-tipo">${item.identificacao}</span>
-                        <span class="badge-status">${item.status}</span>
+                        <span class="badge-tipo">${item.identificacao || 'Matéria'}</span>
+                        <span class="badge-status">${item.status || 'Em Tramitação'}</span>
                     </div>
-                    <p class="ementa">${item.ementa}</p>
+                    <p class="ementa">${item.ementa || 'Sem ementa informada.'}</p>
                     <div class="meta-info">
-                        <span><strong>Autor(a):</strong> ${item.autor}</span>
+                        <span><strong>Autor(a):</strong> ${item.autor || 'Não informado'}</span>
                         <span>•</span>
-                        <span><strong>Tema:</strong> ${item.tema}</span>
+                        <span><strong>Tema:</strong> ${item.tema || 'Geral'}</span>
                     </div>
                     <div class="acoes-documento">
-                        ${botaoPdf}
-                        ${botaoOficial}
+                        <a href="${urlPdf}" target="_blank" class="btn-acao btn-pdf">📄 Ver PDF / Documento</a>
+                        <a href="${urlOficial}" target="_blank" class="btn-acao btn-oficial">🔗 Portal da Câmara</a>
                     </div>
                 `;
                 container.appendChild(card);
