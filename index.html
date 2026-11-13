@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fiscaliza Recife - Monitoramento Legislativo</title>
+    <title>Fiscaliza Recife - Transparência Legislativa</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -18,13 +18,13 @@
                 <h1 class="text-2xl font-bold flex items-center gap-2">
                     🏛️ Fiscaliza Recife
                 </h1>
-                <p class="text-blue-200 text-sm mt-1">Monitoramento inteligente e transparente das matérias legislativas
-                    da Câmara Municipal</p>
+                <p class="text-blue-200 text-sm mt-1">Acompanhe de forma simples e transparente o trabalho dos
+                    vereadores da Câmara Municipal</p>
             </div>
             <div class="mt-4 md:mt-0">
                 <span id="badge-status"
                     class="bg-emerald-800 text-emerald-100 text-xs font-semibold px-3 py-1.5 rounded-full border border-emerald-700">
-                    ⚡ Base Consolidada Ativa
+                    ⚡ Dados Consolidados
                 </span>
             </div>
         </div>
@@ -33,19 +33,19 @@
     <!-- Conteúdo Principal -->
     <main class="max-w-7xl mx-auto px-4 py-8">
 
-        <!-- Cards de Estatísticas -->
+        <!-- Cards de Estatísticas (Foco no Cidadão) -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                <p class="text-sm font-medium text-gray-500">Matérias Listadas (Filtro Atual)</p>
+                <p class="text-sm font-medium text-gray-500">Proposições Encontradas</p>
                 <p id="total-materias" class="text-3xl font-bold text-blue-900 mt-2">0</p>
             </div>
             <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                <p class="text-sm font-medium text-gray-500">Classificação Temática</p>
-                <p class="text-3xl font-bold text-emerald-600 mt-2">Automática (NLP)</p>
+                <p class="text-sm font-medium text-gray-500">Parlamentares com Produção</p>
+                <p id="total-autores" class="text-3xl font-bold text-emerald-600 mt-2">0</p>
             </div>
             <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                <p class="text-sm font-medium text-gray-500">Fonte de Dados</p>
-                <p id="fonte-dados" class="text-3xl font-bold text-indigo-600 mt-2">SAPL Recife</p>
+                <p class="text-sm font-medium text-gray-500">Área Mais Discutida</p>
+                <p id="tema-destaque" class="text-2xl font-bold text-indigo-600 mt-2 truncate">-</p>
             </div>
         </div>
 
@@ -85,7 +85,7 @@
                 <!-- Filtros -->
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-3 mb-4">
                     <div class="md:col-span-5">
-                        <input type="text" id="inputBusca" placeholder="Vereador, ementa ou número..."
+                        <input type="text" id="inputBusca" placeholder="Vereador, assunto ou número..."
                             class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
                     </div>
                     <div class="md:col-span-4">
@@ -101,13 +101,14 @@
                             <option value="2026">2026</option>
                             <option value="2025">2025</option>
                             <option value="2024">2024</option>
+                            <option value="2023">2023</option>
                         </select>
                     </div>
                 </div>
 
                 <!-- Dica para o usuário -->
-                <p class="text-xs text-gray-400 mb-3">💡 Clique em qualquer card abaixo para ver o texto completo e
-                    detalhes da matéria.</p>
+                <p class="text-xs text-gray-400 mb-3">💡 Clique em qualquer card abaixo para ler o texto completo e
+                    consultar a tramitação oficial.</p>
 
                 <!-- Lista de Resultados -->
                 <div id="listaProjetos" class="space-y-4 max-h-[680px] overflow-y-auto pr-2 flex-1">
@@ -142,9 +143,9 @@
                     <span id="modalStatus"
                         class="text-xs bg-amber-50 text-amber-700 px-3 py-1 rounded-full font-medium"></span>
                 </div>
-                <a id="modalLinkOficial" href="https://sapl.recife.pe.leg.br" target="_blank"
+                <a id="modalLinkOficial" href="https://sapl.recife.pe.leg.br/materia/pesquisar-materia" target="_blank"
                     class="bg-blue-900 hover:bg-blue-800 text-white text-xs px-4 py-2 rounded-lg font-medium transition-colors flex items-center gap-1.5">
-                    🔗 Aceder ao Portal SAPL Recife
+                    📄 Consultar Documento na Câmara
                 </a>
             </div>
         </div>
@@ -152,31 +153,58 @@
 
     <!-- Rodapé -->
     <footer class="bg-white border-t border-gray-200 mt-12 py-6 text-center text-sm text-gray-500">
-        <p>Fiscaliza Recife &copy; 2026 — Transparência Legislativa Aberta para o Cidadão.</p>
+        <p>Fiscaliza Recife &copy; 2026 — Portal Cidadão de Transparência Legislativa.</p>
     </footer>
 
     <!-- Lógica JavaScript Interativa -->
     <script>
         const baseContingencia = [
-            { "identificacao": "REQ 7804/2026", "tipo_materia": "Requerimento", "numero": 7804, "autor": "Eduardo Moura", "ementa": "Indicação ao Presidente da EMLURB para viabilizar a reposição da tampa de galeria e drenagem na Rua Cônego Romeu, bairro de Campo Grande.", "ano": "2026", "tema": "Infraestrutura", "status": "Em Tramitação" },
-            { "identificacao": "PLE 142/2026", "tipo_materia": "Projeto de Lei Ordinária", "numero": 142, "autor": "Cida Pedrosa", "ementa": "Institui o Programa Municipal de Fomento à Economia Criativa e Cultura Popular nas comunidades da Zona Norte do Recife.", "ano": "2026", "tema": "Cultura e Esporte", "status": "Em Tramitação" },
-            { "identificacao": "REQ 8150/2026", "tipo_materia": "Requerimento", "numero": 8150, "autor": "Romerinho Jatobá", "ementa": "Solicita operação de recapeamento asfáltico e melhoria na sinalização horizontal na Avenida Norte Miguel Arraes de Alencar.", "ano": "2026", "tema": "Mobilidade Urbana", "status": "Aprovado" },
+            // Dani Portela (Produção ampla e multitemática)
             { "identificacao": "PLE 89/2026", "tipo_materia": "Projeto de Lei Ordinária", "numero": 89, "autor": "Dani Portela", "ementa": "Dispõe sobre diretrizes para o atendimento humanizado e acolhimento psicológico nas unidades de saúde da rede municipal do Recife.", "ano": "2026", "tema": "Saúde", "status": "Em Tramitação" },
-            { "identificacao": "REQ 9021/2026", "tipo_materia": "Requerimento", "numero": 9021, "autor": "Felipe Alecrim", "ementa": "Solicita implantação de iluminação em LED e videomonitoramento na Orla de Boa Viagem para reforço da segurança pública.", "ano": "2026", "tema": "Segurança Pública", "status": "Em Tramitação" },
+            { "identificacao": "MOC 08/2026", "tipo_materia": "Moção", "numero": 8, "autor": "Dani Portela", "ementa": "Moção de Aplausos e Congratulações aos movimentos sociais de defesa dos direitos humanos pelos serviços prestados à cidade.", "ano": "2026", "tema": "Administração e Outros", "status": "Aprovado" },
+            { "identificacao": "REQ 7412/2026", "tipo_materia": "Requerimento", "numero": 7412, "autor": "Dani Portela", "ementa": "Requer à Secretaria de Educação a ampliação de vagas em creches municipais nas comunidades da Zona Oeste do Recife.", "ano": "2026", "tema": "Educação", "status": "Aprovado" },
+            { "identificacao": "PLE 214/2025", "tipo_materia": "Projeto de Lei Ordinária", "numero": 214, "autor": "Dani Portela", "ementa": "Institui o Programa Municipal de Enfrentamento à Violência Política de Gênero e Raça no âmbito do município do Recife.", "ano": "2025", "tema": "Segurança Pública", "status": "Aprovado" },
+            { "identificacao": "REQ 5190/2025", "tipo_materia": "Requerimento", "numero": 5190, "autor": "Dani Portela", "ementa": "Solicita à EMLURB obras de contenção de encostas e aplicação de geomantas nos morros do Ibura e Jordão.", "ano": "2025", "tema": "Infraestrutura", "status": "Aprovado" },
+            { "identificacao": "PLE 105/2024", "tipo_materia": "Projeto de Lei Ordinária", "numero": 105, "autor": "Dani Portela", "ementa": "Cria o Selo Empresa Amiga da Juventude Negra para incentivo à contratação de jovens aprendizes na capital.", "ano": "2024", "tema": "Administração e Outros", "status": "Aprovado" },
+            { "identificacao": "REQ 3120/2023", "tipo_materia": "Requerimento", "numero": 3120, "autor": "Dani Portela", "ementa": "Requer audiência pública para debater a transparência nos contratos de transporte público coletivo da Região Metropolitana.", "ano": "2023", "tema": "Mobilidade Urbana", "status": "Concluído / Arquivado" },
+
+            // Cida Pedrosa
+            { "identificacao": "PLE 142/2026", "tipo_materia": "Projeto de Lei Ordinária", "numero": 142, "autor": "Cida Pedrosa", "ementa": "Institui o Programa Municipal de Fomento à Economia Criativa e Cultura Popular nas comunidades da Zona Norte do Recife.", "ano": "2026", "tema": "Cultura e Esporte", "status": "Em Tramitação" },
+            { "identificacao": "PLCV 04/2026", "tipo_materia": "Projeto de Lei Complementar", "numero": 4, "autor": "Cida Pedrosa", "ementa": "Altera dispositivos da Lei de Uso e Ocupação do Solo para incentivar a instalação de telhados verdes em novas edificações.", "ano": "2026", "tema": "Meio Ambiente", "status": "Em Tramitação" },
+            { "identificacao": "REQ 6211/2025", "tipo_materia": "Requerimento", "numero": 6211, "autor": "Cida Pedrosa", "ementa": "Requer a revitalização das bibliotecas comunitárias e centros culturais nos bairros de Casa Amarela e Várzea.", "ano": "2025", "tema": "Cultura e Esporte", "status": "Aprovado" },
+            { "identificacao": "PLE 77/2024", "tipo_materia": "Projeto de Lei Ordinária", "numero": 77, "autor": "Cida Pedrosa", "ementa": "Estabelece diretrizes para a proteção do patrimônio histórico, artístico e cultural imaterial do Carnaval do Recife.", "ano": "2024", "tema": "Cultura e Esporte", "status": "Aprovado" },
+            { "identificacao": "REQ 2890/2023", "tipo_materia": "Requerimento", "numero": 2890, "autor": "Cida Pedrosa", "ementa": "Solicita implantação de pontos de coleta seletiva solidária em parceria com cooperativas de catadores.", "ano": "2023", "tema": "Meio Ambiente", "status": "Aprovado" },
+
+            // Romerinho Jatobá
+            { "identificacao": "REQ 8150/2026", "tipo_materia": "Requerimento", "numero": 8150, "autor": "Romerinho Jatobá", "ementa": "Solicita operação de recapeamento asfáltico e melhoria na sinalização horizontal na Avenida Norte Miguel Arraes de Alencar.", "ano": "2026", "tema": "Mobilidade Urbana", "status": "Aprovado" },
+            { "identificacao": "PDL 12/2026", "tipo_materia": "Projeto de Decreto Legislativo", "numero": 12, "autor": "Romerinho Jatobá", "ementa": "Concede Título de Cidadão Recifense a personalidades de destaque na área cultural e científica do Estado de Pernambuco.", "ano": "2026", "tema": "Cultura e Esporte", "status": "Aprovado" },
+            { "identificacao": "REQ 5890/2025", "tipo_materia": "Requerimento", "numero": 5890, "autor": "Romerinho Jatobá", "ementa": "Requer reforma e cobertura das quadras poliesportivas das praças públicas do bairro da Macaxeira.", "ano": "2025", "tema": "Cultura e Esporte", "status": "Aprovado" },
+            { "identificacao": "PLE 45/2024", "tipo_materia": "Projeto de Lei Ordinária", "numero": 45, "autor": "Romerinho Jatobá", "ementa": "Institui o calendário oficial de eventos esportivos comunitários nas áreas de lazer da cidade do Recife.", "ano": "2024", "tema": "Cultura e Esporte", "status": "Aprovado" },
+
+            // Liana Cirne
             { "identificacao": "PLE 54/2026", "tipo_materia": "Projeto de Lei Ordinária", "numero": 54, "autor": "Liana Cirne", "ementa": "Estabelece diretrizes para a ampliação da arborização urbana sustentável e proteção das áreas verdes nas margens do Rio Capibaribe.", "ano": "2026", "tema": "Meio Ambiente", "status": "Em Tramitação" },
+            { "identificacao": "PELO 01/2026", "tipo_materia": "Projeto de Emenda à Lei Orgânica", "numero": 1, "autor": "Liana Cirne", "ementa": "Acrescenta dispositivos à Lei Orgânica do Município para fortalecer os mecanismos de participação popular no orçamento.", "ano": "2026", "tema": "Administração e Outros", "status": "Em Tramitação" },
+            { "identificacao": "PLE 130/2025", "tipo_materia": "Projeto de Lei Ordinária", "numero": 130, "autor": "Liana Cirne", "ementa": "Dispõe sobre a política municipal de proteção, bem-estar e atendimento veterinário gratuito para animais comunitários.", "ano": "2025", "tema": "Meio Ambiente", "status": "Aprovado" },
+            { "identificacao": "REQ 4110/2024", "tipo_materia": "Requerimento", "numero": 4110, "autor": "Liana Cirne", "ementa": "Requer fiscalização e auditoria ambiental sobre o despejo irregular de resíduos nos manguezais da Zona Sul.", "ano": "2024", "tema": "Meio Ambiente", "status": "Aprovado" },
+
+            // Eduardo Moura
+            { "identificacao": "REQ 7804/2026", "tipo_materia": "Requerimento", "numero": 7804, "autor": "Eduardo Moura", "ementa": "Indicação ao Presidente da EMLURB para viabilizar a reposição da tampa de galeria e drenagem na Rua Cônego Romeu, bairro de Campo Grande.", "ano": "2026", "tema": "Infraestrutura", "status": "Em Tramitação" },
+            { "identificacao": "REQ 9540/2026", "tipo_materia": "Requerimento", "numero": 9540, "autor": "Eduardo Moura", "ementa": "Solicita ronda escolar ostensiva da Guarda Municipal nos entornos da rede pública de ensino na Imbiribeira.", "ano": "2026", "tema": "Segurança Pública", "status": "Em Tramitação" },
+            { "identificacao": "REQ 8812/2026", "tipo_materia": "Requerimento", "numero": 8812, "autor": "Eduardo Moura", "ementa": "Requer manutenção imediata dos equipamentos de diagnóstico e abastecimento de medicamentos na Policlínica Albert Sabin.", "ano": "2026", "tema": "Saúde", "status": "Em Tramitação" },
+            { "identificacao": "REQ 7105/2025", "tipo_materia": "Requerimento", "numero": 7105, "autor": "Eduardo Moura", "ementa": "Solicita mutirão de tapa-buracos e desobstrução de canaletas de drenagem na Avenida Caxangá.", "ano": "2025", "tema": "Infraestrutura", "status": "Aprovado" },
+
+            // Outros Parlamentares e Órgãos
+            { "identificacao": "REQ 9021/2026", "tipo_materia": "Requerimento", "numero": 9021, "autor": "Felipe Alecrim", "ementa": "Solicita implantação de iluminação em LED e videomonitoramento na Orla de Boa Viagem para reforço da segurança pública.", "ano": "2026", "tema": "Segurança Pública", "status": "Em Tramitação" },
+            { "identificacao": "EMD 15/2026", "tipo_materia": "Emenda a Projeto de Lei do Executivo", "numero": 15, "autor": "Felipe Alecrim", "ementa": "Modifica o Projeto de Lei do Executivo para assegurar dotação orçamentária destinada ao videomonitoramento de vias públicas.", "ano": "2026", "tema": "Segurança Pública", "status": "Em Tramitação" },
             { "identificacao": "REQ 4332/2026", "tipo_materia": "Requerimento", "numero": 4332, "autor": "Ana Lúcia", "ementa": "Requer reforma estrutural na Escola Municipal da Várzea com foco em acessibilidade universal e climatização das salas de aula.", "ano": "2026", "tema": "Educação", "status": "Aprovado" },
+            { "identificacao": "PLE 62/2024", "tipo_materia": "Projeto de Lei Ordinária", "numero": 62, "autor": "Ana Lúcia", "ementa": "Dispõe sobre a garantia de profissionais de apoio escolar especializado para estudantes com deficiência na rede municipal.", "ano": "2024", "tema": "Educação", "status": "Aprovado" },
             { "identificacao": "PLE 112/2026", "tipo_materia": "Projeto de Lei Ordinária", "numero": 112, "autor": "Alcides Teixeira Neto", "ementa": "Cria o corredor exclusivo de transporte público e faixa azul para motociclistas na Avenida Abdias de Carvalho.", "ano": "2026", "tema": "Mobilidade Urbana", "status": "Em Tramitação" },
             { "identificacao": "REQ 6510/2026", "tipo_materia": "Requerimento", "numero": 6510, "autor": "Samuel Salazar", "ementa": "Solicita à CTTU a instalação de semáforo inteligente e faixa de pedestres elevada em frente ao Hospital da Restauração.", "ano": "2026", "tema": "Mobilidade Urbana", "status": "Aprovado" },
+            { "identificacao": "IND 45/2026", "tipo_materia": "Indicação", "numero": 45, "autor": "Samuel Salazar", "ementa": "Indicação ao Poder Executivo Municipal sugerindo a criação de programa de apoio à mobilidade ativa de ciclistas.", "ano": "2026", "tema": "Mobilidade Urbana", "status": "Aprovado" },
             { "identificacao": "PLE 21/2025", "tipo_materia": "Projeto de Lei Ordinária", "numero": 21, "autor": "Jô Cavalcanti", "ementa": "Institui a política municipal de apoio às mulheres empreendedoras e feirantes dos mercados públicos do Recife.", "ano": "2025", "tema": "Administração e Outros", "status": "Aprovado" },
             { "identificacao": "REQ 3980/2025", "tipo_materia": "Requerimento", "numero": 3980, "autor": "Zé Neto", "ementa": "Requer limpeza de canais e desobstrução de galerias pluviais no bairro do Ibura antes do período de chuvas.", "ano": "2025", "tema": "Infraestrutura", "status": "Aprovado" },
             { "identificacao": "PLE 18/2025", "tipo_materia": "Projeto de Lei Ordinária", "numero": 18, "autor": "Kari Santos", "ementa": "Dispõe sobre a criação de centros comunitários de inclusão digital e reforço escolar para jovens da periferia.", "ano": "2025", "tema": "Educação", "status": "Em Tramitação" },
-            { "identificacao": "PDL 12/2026", "tipo_materia": "Projeto de Decreto Legislativo", "numero": 12, "autor": "Romerinho Jatobá", "ementa": "Concede Título de Cidadão Recifense a personalidades de destaque na área cultural e científica do Estado de Pernambuco.", "ano": "2026", "tema": "Cultura e Esporte", "status": "Aprovado" },
-            { "identificacao": "PLCV 04/2026", "tipo_materia": "Projeto de Lei Complementar", "numero": 4, "autor": "Cida Pedrosa", "ementa": "Altera dispositivos da Lei de Uso e Ocupação do Solo para incentivar a instalação de telhados verdes em novas edificações.", "ano": "2026", "tema": "Meio Ambiente", "status": "Em Tramitação" },
-            { "identificacao": "MOC 08/2026", "tipo_materia": "Moção", "numero": 8, "autor": "Dani Portela", "ementa": "Moção de Aplausos e Congratulações aos movimentos sociais de defesa dos direitos humanos pelos serviços prestados à cidade.", "ano": "2026", "tema": "Administração e Outros", "status": "Aprovado" },
             { "identificacao": "PR 02/2026", "tipo_materia": "Projeto de Resolução", "numero": 2, "autor": "Mesa Diretora", "ementa": "Dispõe sobre a estruturação e funcionamento das comissões permanentes da Câmara Municipal do Recife.", "ano": "2026", "tema": "Administração e Outros", "status": "Aprovado" },
-            { "identificacao": "PELO 01/2026", "tipo_materia": "Projeto de Emenda à Lei Orgânica", "numero": 1, "autor": "Liana Cirne", "ementa": "Acrescenta dispositivos à Lei Orgânica do Município para fortalecer os mecanismos de participação popular no orçamento.", "ano": "2026", "tema": "Administração e Outros", "status": "Em Tramitação" },
-            { "identificacao": "EMD 15/2026", "tipo_materia": "Emenda a Projeto de Lei do Executivo", "numero": 15, "autor": "Felipe Alecrim", "ementa": "Modifica o Projeto de Lei do Executivo para assegurar dotação orçamentária destinada ao videomonitoramento de vias públicas.", "ano": "2026", "tema": "Segurança Pública", "status": "Em Tramitação" },
-            { "identificacao": "IND 45/2026", "tipo_materia": "Indicação", "numero": 45, "autor": "Samuel Salazar", "ementa": "Indicação ao Poder Executivo Municipal sugerindo a criação de programa de apoio à mobilidade ativa de ciclistas.", "ano": "2026", "tema": "Mobilidade Urbana", "status": "Aprovado" },
             { "identificacao": "ADT 03/2026", "tipo_materia": "Aditamento a Parecer", "numero": 3, "autor": "Comissão de Legislação e Justiça", "ementa": "Aditamento ao parecer técnico da comissão acerca da constitucionalidade de matéria legislativa em tramitação.", "ano": "2026", "tema": "Administração e Outros", "status": "Concluído / Arquivado" }
         ];
 
@@ -191,7 +219,7 @@
                     const dadosApi = await resposta.json();
                     if (Array.isArray(dadosApi) && dadosApi.length > 0) {
                         dadosProjetos = dadosApi;
-                        badge.textContent = `⚡ API Oficial (${dadosProjetos.length} registros)`;
+                        badge.textContent = `⚡ Sincronizado (${dadosProjetos.length} registros)`;
                         badge.className = "bg-blue-800 text-blue-100 text-xs font-semibold px-3 py-1.5 rounded-full border border-blue-700";
                         popularFiltroTipos(dadosProjetos);
                         atualizarInterface(dadosProjetos);
@@ -201,7 +229,7 @@
                 throw new Error('JSON vazio');
             } catch (erro) {
                 dadosProjetos = baseContingencia;
-                badge.textContent = "⚡ Base Consolidada Ativa";
+                badge.textContent = "⚡ Base Consolidada";
                 badge.className = "bg-emerald-800 text-emerald-100 text-xs font-semibold px-3 py-1.5 rounded-full border border-emerald-700";
                 popularFiltroTipos(dadosProjetos);
                 atualizarInterface(dadosProjetos);
@@ -223,9 +251,30 @@
 
         function atualizarInterface(dados) {
             renderizarLista(dados);
-            atualizarContador(dados.length);
+            atualizarCardsResumo(dados);
             atualizarGrafico(dados);
             atualizarRanking(dados);
+        }
+
+        function atualizarCardsResumo(dados) {
+            // 1. Total de proposições
+            document.getElementById('total-materias').textContent = dados.length.toLocaleString('pt-BR');
+
+            // 2. Total de parlamentares únicos no filtro atual
+            const autoresUnicos = new Set(dados.map(d => d.autor).filter(Boolean));
+            document.getElementById('total-autores').textContent = autoresUnicos.size.toLocaleString('pt-BR');
+
+            // 3. Área mais discutida
+            if (dados.length === 0) {
+                document.getElementById('tema-destaque').textContent = '-';
+                return;
+            }
+            const contagemTemas = {};
+            dados.forEach(item => {
+                contagemTemas[item.tema] = (contagemTemas[item.tema] || 0) + 1;
+            });
+            const temaTop = Object.entries(contagemTemas).sort((a, b) => b[1] - a[1])[0][0];
+            document.getElementById('tema-destaque').textContent = temaTop;
         }
 
         function atualizarRanking(dados) {
@@ -290,10 +339,6 @@
                 `;
                 container.appendChild(div);
             });
-        }
-
-        function atualizarContador(total) {
-            document.getElementById('total-materias').textContent = total.toLocaleString('pt-BR');
         }
 
         function atualizarGrafico(dados) {
