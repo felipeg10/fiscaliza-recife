@@ -1,9 +1,7 @@
 import json
 import urllib.request
-import urllib.error
 import ssl
 
-# Ignora verificação estrita de SSL caso o servidor da Câmara tenha certificado antigo
 ctx = ssl.create_default_context()
 ctx.check_hostname = False
 ctx.verify_mode = ssl.CERT_NONE
@@ -34,33 +32,36 @@ def classificar_tema(ementa):
     return "Administração e Outros"
 
 def coletar_tudo():
-    print("1. Mapeando vereadores e autores da Câmara do Recife...")
+    print("1. Mapeando autores da Câmara do Recife...")
     autores_map = {}
     url_autores = f"{BASE_URL}/base/autor/?page_size=200"
     
     while url_autores:
         try:
             dados = buscar_json(url_autores)
-            for autor in dados.get('results', []):
-                autores_map[autor['id']] = autor.get('nome', 'Parlamentar')
-            url_autores = dados.get('pagination', {}).get('links', {}).get('next')
+            results = dados.get('results', dados) if isinstance(dados, dict) else dados
+            for autor in results:
+                autores_map[autor.get('id')] = autor.get('nome', 'Parlamentar')
+            # Paginação segura
+            url_autores = dados.get('pagination', {}).get('links', {}).get('next') if isinstance(dados, dict) else None
         except Exception as e:
             print(f"Aviso ao buscar autores: {e}")
             break
 
     print(f"Total de autores mapeados: {len(autores_map)}")
-    print("2. Coletando matérias legislativas (Projetos de Lei e Requerimentos)...")
+    print("2. Coletando matérias legislativas...")
     
     projetos_formatados = []
-    # Coleta as matérias mais recentes (ajuste o limite de páginas conforme necessário)
     url_materias = f"{BASE_URL}/materia/materialegislativa/?ordering=-ano,-id&page_size=100"
     paginas_coletadas = 0
-    max_paginas = 15  # Coleta até 1.500 matérias mais recentes para manter o site rápido
+    max_paginas = 10
 
     while url_materias and paginas_coletadas < max_paginas:
         try:
             dados = buscar_json(url_materias)
-            for m in dados.get('results', []):
+            lista_materias = dados.get('results', dados) if isinstance(dados, dict) else dados
+            
+            for m in lista_materias:
                 autores_ids = m.get('autores', [])
                 nomes_autores = [autores_map.get(aid, "Mesa Diretora / Parlamentar") for aid in autores_ids]
                 autor_str = ", ".join(nomes_autores) if nomes_autores else "Parlamentar"
@@ -81,12 +82,13 @@ def coletar_tudo():
                 })
 
             paginas_coletadas += 1
-            print(f"Página {paginas_coletadas} processada ({len(projetos_formatados)} matérias)...")
-            url_materias = dados.get('pagination', {}).get('links', {}).get('next')
+            print(f"Página {paginas_coletadas} processada ({len(projetos_formatados)} matérias acumuladas)...")
+            url_materias = dados.get('pagination', {}).get('links', {}).get('next') if isinstance(dados, dict) else None
         except Exception as e:
             print(f"Erro na página {paginas_coletadas + 1}: {e}")
             break
 
+    # Salva diretamente como uma lista pura de JSON
     with open("dados.json", "w", encoding="utf-8") as f:
         json.dump(projetos_formatados, f, ensure_ascii=False, indent=2)
 
