@@ -4,270 +4,297 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fiscaliza Recife | Inteligência e Transparência Legislativa</title>
+    <title>Fiscaliza Recife - Inteligência e Auditoria Legislativa</title>
     <style>
         :root {
-            --bg-base: #090d16;
-            --bg-surface: #111827;
+            --bg-primary: #0b0f19;
+            --bg-secondary: #111827;
             --bg-card: #1f2937;
             --border-color: #374151;
-            --text-main: #f9fafb;
+            --text-main: #f3f4f6;
             --text-muted: #9ca3af;
-            --accent-green: #10b981;
-            --accent-blue: #3b82f6;
-            --accent-red: #ef4444;
+            --accent-primary: #3b82f6;
+            --accent-hover: #2563eb;
+            --badge-bg: #1e3a8a;
+            --badge-text: #93c5fd;
+            --success-color: #10b981;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-base);
+            background-color: var(--bg-primary);
             color: var(--text-main);
-            margin: 0;
-            padding: 0;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
         }
 
         header {
-            background-color: var(--bg-surface);
+            background-color: var(--bg-secondary);
             border-bottom: 1px solid var(--border-color);
-            padding: 20px 32px;
+            padding: 20px 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 16px;
         }
 
         .logo-area h1 {
-            margin: 0;
-            font-size: 20px;
+            font-size: 1.5rem;
             font-weight: 700;
-            letter-spacing: -0.5px;
-            color: var(--text-main);
+            color: #ffffff;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
 
         .logo-area h1 span {
-            color: var(--accent-green);
+            color: var(--accent-primary);
         }
 
         .logo-area p {
-            margin: 4px 0 0 0;
+            font-size: 0.85rem;
             color: var(--text-muted);
-            font-size: 13px;
+            margin-top: 2px;
         }
 
-        .container {
+        .header-badge {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            background: var(--bg-card);
+            padding: 6px 12px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+        }
+
+        main {
             max-width: 1400px;
             width: 100%;
-            margin: 32px auto;
-            padding: 0 24px;
-            box-sizing: border-box;
-            display: grid;
-            grid-template-columns: 1fr 360px;
-            gap: 32px;
+            margin: 0 auto;
+            padding: 30px 20px;
             flex: 1;
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 30px;
         }
 
         @media (max-width: 1024px) {
-            .container {
+            main {
                 grid-template-columns: 1fr;
             }
         }
 
-        .main-content {
+        .conteudo-principal {
             display: flex;
             flex-direction: column;
             gap: 20px;
         }
 
-        .filtros-box {
-            background: var(--bg-surface);
+        .filtros-container {
+            background-color: var(--bg-secondary);
             border: 1px solid var(--border-color);
-            padding: 16px 20px;
+            padding: 20px;
             border-radius: 10px;
             display: flex;
-            gap: 16px;
+            gap: 15px;
             flex-wrap: wrap;
         }
 
-        .filtros-box select {
-            background: var(--bg-card);
-            color: var(--text-main);
-            border: 1px solid var(--border-color);
-            padding: 10px 14px;
-            border-radius: 6px;
-            font-size: 14px;
+        .filtro-grupo {
             flex: 1;
-            min-width: 220px;
-            outline: none;
-            transition: border-color 0.2s;
+            min-width: 200px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
         }
 
-        .filtros-box select:focus {
-            border-color: var(--accent-green);
+        .filtro-grupo label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        select {
+            background-color: var(--bg-card);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 10px;
+            border-radius: 6px;
+            outline: none;
+            font-size: 0.95rem;
+            cursor: pointer;
+        }
+
+        select:focus {
+            border-color: var(--accent-primary);
+        }
+
+        .lista-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
         }
 
         .card-proposicao {
-            background: var(--bg-surface);
+            background-color: var(--bg-secondary);
             border: 1px solid var(--border-color);
             border-radius: 10px;
             padding: 20px;
-            transition: transform 0.2s, border-color 0.2s;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            transition: border-color 0.2s;
         }
 
         .card-proposicao:hover {
-            border-color: #4b5563;
-            transform: translateY(-2px);
+            border-color: var(--accent-primary);
         }
 
         .card-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 12px;
         }
 
         .badge-tipo {
-            background: rgba(59, 130, 246, 0.15);
-            color: #60a5fa;
+            background-color: var(--badge-bg);
+            color: var(--badge-text);
             padding: 4px 10px;
-            border-radius: 6px;
+            border-radius: 4px;
+            font-size: 0.75rem;
             font-weight: 600;
-            font-size: 12px;
-            border: 1px solid rgba(59, 130, 246, 0.3);
+            text-transform: uppercase;
         }
 
         .badge-status {
-            font-size: 12px;
-            color: var(--text-muted);
-            background: var(--bg-card);
+            font-size: 0.75rem;
+            color: var(--success-color);
+            background: rgba(16, 185, 129, 0.1);
             padding: 4px 8px;
             border-radius: 4px;
+            font-weight: 500;
         }
 
         .ementa {
-            font-size: 15px;
-            line-height: 1.6;
-            color: #e5e7eb;
-            margin-bottom: 16px;
-        }
-
-        .meta-info {
-            font-size: 13px;
-            color: var(--text-muted);
-            margin-bottom: 16px;
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-
-        .meta-info strong {
+            font-size: 0.95rem;
+            line-height: 1.5;
             color: var(--text-main);
         }
 
-        .acoes-documento {
-            border-top: 1px solid var(--border-color);
-            padding-top: 14px;
+        .meta-info {
+            font-size: 0.85rem;
+            color: var(--text-muted);
             display: flex;
             gap: 10px;
             flex-wrap: wrap;
         }
 
+        .acoes-documento {
+            display: flex;
+            gap: 10px;
+            margin-top: 5px;
+        }
+
         .btn-acao {
-            padding: 7px 14px;
+            font-size: 0.85rem;
+            padding: 6px 12px;
             border-radius: 6px;
             text-decoration: none;
-            font-size: 13px;
+            font-weight: 500;
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            font-weight: 500;
             transition: background 0.2s;
         }
 
         .btn-pdf {
-            background-color: rgba(239, 68, 68, 0.15);
-            color: #f87171;
-            border: 1px solid rgba(239, 68, 68, 0.3);
+            background-color: #b91c1c;
+            color: white;
         }
 
         .btn-pdf:hover {
-            background-color: rgba(239, 68, 68, 0.25);
+            background-color: #991b1b;
         }
 
         .btn-oficial {
-            background-color: rgba(59, 130, 246, 0.15);
-            color: #60a5fa;
-            border: 1px solid rgba(59, 130, 246, 0.3);
+            background-color: var(--bg-card);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
         }
 
         .btn-oficial:hover {
-            background-color: rgba(59, 130, 246, 0.25);
+            background-color: var(--border-color);
         }
 
-        .sidebar {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .ranking-box {
-            background: var(--bg-surface);
+        /* Sidebar / Ranking */
+        aside {
+            background-color: var(--bg-secondary);
             border: 1px solid var(--border-color);
             border-radius: 10px;
             padding: 20px;
+            height: fit-content;
         }
 
-        .ranking-box h3 {
-            margin-top: 0;
-            font-size: 16px;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 12px;
-            color: var(--text-main);
+        aside h3 {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: #ffffff;
             display: flex;
             align-items: center;
             gap: 8px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        .ranking-lista {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-height: 600px;
+            overflow-y: auto;
         }
 
         .ranking-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px solid rgba(55, 65, 81, 0.5);
-            font-size: 14px;
+            padding: 8px 10px;
+            background-color: var(--bg-card);
+            border-radius: 6px;
+            font-size: 0.85rem;
         }
 
-        .ranking-item:last-child {
-            border-bottom: none;
+        .ranking-nome {
+            color: var(--text-main);
+            font-weight: 500;
         }
 
-        .ranking-item strong {
-            background: var(--bg-card);
+        .ranking-qtd {
+            background: var(--badge-bg);
+            color: var(--badge-text);
             padding: 2px 8px;
-            border-radius: 4px;
-            color: var(--accent-green);
-            font-size: 13px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.8rem;
         }
 
         footer {
-            background-color: var(--bg-surface);
+            background-color: var(--bg-secondary);
             border-top: 1px solid var(--border-color);
-            padding: 24px;
+            padding: 20px;
             text-align: center;
+            font-size: 0.8rem;
             color: var(--text-muted);
-            font-size: 13px;
             margin-top: auto;
         }
 
-        footer p {
-            margin: 0 0 6px 0;
+        footer p+p {
+            margin-top: 5px;
         }
     </style>
 </head>
@@ -276,70 +303,94 @@
 
     <header>
         <div class="logo-area">
-            <h1>Fiscaliza<span>Recife</span></h1>
-            <p>Plataforma de Inteligência e Auditoria Legislativa</p>
+            <h1>Fiscaliza <span>Recife</span></h1>
+            <p>Plataforma Independente de Inteligência e Auditoria Legislativa</p>
         </div>
-        <div style="font-size: 13px; color: var(--text-muted);">
+        <div class="header-badge">
             Dados Oficiais • Câmara Municipal
         </div>
     </header>
 
-    <div class="container">
-        <div class="main-content">
-            <div class="filtros-box">
-                <select id="filtroTipo" onchange="filtrarDados()">
-                    <option value="">Todos os Tipos de Matéria</option>
-                    <option value="Projeto de Lei Complementar">Projeto de Lei Complementar</option>
-                    <option value="Projeto de Lei Ordinária">Projeto de Lei Ordinária</option>
-                    <option value="Requerimento">Requerimento</option>
-                    <option value="Indicação">Indicação</option>
-                </select>
-                <select id="filtroAutor" onchange="filtrarDados()">
-                    <option value="">Todos os Autores</option>
-                </select>
-            </div>
-
-            <div id="listaProposicoes">
-                <!-- Cards injetados via JS -->
-            </div>
-        </div>
-
-        <div class="sidebar">
-            <div class="ranking-box">
-                <h3>🏆 Ranking de Produtividade</h3>
-                <div id="rankingAutores">
-                    <!-- Ranking injetado via JS -->
+    <main>
+        <section class="conteudo-principal">
+            <div class="filtros-container">
+                <div class="filtro-grupo">
+                    <label for="filtroTipo">Tipo de Matéria</label>
+                    <select id="filtroTipo" onchange="filtrarDados()">
+                        <option value="">Todos os Tipos de Matéria</option>
+                    </select>
+                </div>
+                <div class="filtro-grupo">
+                    <label for="filtroAutor">Autor(a)</label>
+                    <select id="filtroAutor" onchange="filtrarDados()">
+                        <option value="">Todos os Autores</option>
+                    </select>
                 </div>
             </div>
-        </div>
-    </div>
+
+            <div id="listaProposicoes" class="lista-cards">
+                <!-- Os cards serão injetados dinamicamente via JavaScript -->
+            </div>
+        </section>
+
+        <aside>
+            <h3>🏆 Ranking de Produtividade</h3>
+            <div id="rankingLista" class="ranking-lista">
+                <!-- O ranking dos 39 vereadores será injetado aqui -->
+            </div>
+        </aside>
+    </main>
 
     <footer>
-        <p><strong>Fiscaliza Recife</strong> — Plataforma independente de auditoria e controle social do legislativo
-            municipal.</p>
-        <p>Dados extraídos diretamente do Sistema de Apoio ao Processo Legislativo (SAPL) da Câmara Municipal do Recife.
-            Em caso de divergência técnica, prevalecem os registros oficiais da Casa.</p>
+        <p><strong>Termo de Transparência Cívica:</strong> Arquitetura descentralizada de auditoria pública e
+            monitoramento contínuo das atividades da Câmara Municipal do Recife.</p>
+        <p>© 2026 Fiscaliza Recife — Código aberto e imune a instabilidades institucionais.</p>
     </footer>
 
     <script>
         let dadosGlobais = [];
 
-        async function carregarDados() {
-            try {
-                const response = await fetch('dados.json');
-                dadosGlobais = await response.json();
-                popularFiltrosAutores(dadosGlobais);
+        // Carrega o arquivo dados.json ao abrir a página
+        fetch('dados.json')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Não foi possível carregar a base de dados.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                dadosGlobais = data;
+                inicializarFiltros(dadosGlobais);
                 renderizar(dadosGlobais);
-            } catch (error) {
-                console.error("Erro ao carregar dados.json:", error);
-                document.getElementById('listaProposicoes').innerHTML = '<p style="color: #f87171; padding: 20px;">Erro ao carregar a base de dados legislativa.</p>';
-            }
-        }
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+                document.getElementById('listaProposicoes').innerHTML = `
+                    <div style="padding: 20px; color: #ff6b6b; background: rgba(255,107,107,0.1); border-radius: 8px; border: 1px solid #ff6b6b;">
+                        <strong>Aviso do Sistema:</strong> O arquivo <code>dados.json</code> não foi encontrado ou está inacessível. Certifique-se de que ele está na raiz do repositório.
+                    </div>
+                `;
+            });
 
-        function popularFiltrosAutores(dados) {
-            const autoresSet = [...new Set(dados.map(item => item.autor))].sort();
+        function inicializarFiltros(dados) {
+            const tiposSet = new Set();
+            const autoresSet = new Set();
+
+            dados.forEach(item => {
+                if (item.tipo_materia) tiposSet.add(item.tipo_materia);
+                if (item.autor) autoresSet.add(item.autor);
+            });
+
+            const selectTipo = document.getElementById('filtroTipo');
+            tiposSet.forEach(tipo => {
+                const opt = document.createElement('option');
+                opt.value = tipo;
+                opt.textContent = tipo;
+                selectTipo.appendChild(opt);
+            });
+
             const selectAutor = document.getElementById('filtroAutor');
-            autoresSet.forEach(autor => {
+            Array.from(autoresSet).sort().forEach(autor => {
                 const opt = document.createElement('option');
                 opt.value = autor;
                 opt.textContent = autor;
@@ -347,19 +398,32 @@
             });
         }
 
+        function filtrarDados() {
+            const tipoFiltro = document.getElementById('filtroTipo').value;
+            const autorFiltro = document.getElementById('filtroAutor').value;
+
+            const filtrados = dadosGlobais.filter(item => {
+                const matchTipo = !tipoFiltro || item.tipo_materia === tipoFiltro;
+                const matchAutor = !autorFiltro || item.autor === autorFiltro;
+                return matchTipo && matchAutor;
+            });
+
+            renderizar(filtrados);
+        }
+
         function renderizar(dados) {
             const container = document.getElementById('listaProposicoes');
             container.innerHTML = '';
 
             if (dados.length === 0) {
-                container.innerHTML = '<p style="padding: 20px; color: var(--text-muted);">Nenhuma matéria encontrada com os filtros selecionados.</p>';
+                container.innerHTML = '<p style="padding: 20px; color: var(--text-muted); text-align: center;">Nenhuma matéria encontrada com os filtros selecionados.</p>';
                 atualizarRanking([]);
                 return;
             }
 
             dados.forEach(item => {
-                const urlPdf = (item.url_pdf && item.url_pdf.trim() !== '') ? item.url_pdf : `https://sapl.recife.pe.leg.br/materia/${item.id_sapl || '1201'}`;
-                const urlOficial = (item.url_oficial && item.url_oficial.trim() !== '') ? item.url_oficial : `https://sapl.recife.pe.leg.br/materia/${item.id_sapl || '1201'}`;
+                const urlPdf = (item.url_pdf && item.url_pdf.includes('http')) ? item.url_pdf : 'https://sapl.recife.pe.leg.br/materia/pesquisar-materia';
+                const urlOficial = (item.url_oficial && item.url_oficial.includes('http')) ? item.url_oficial : 'https://sapl.recife.pe.leg.br/materia/pesquisar-materia';
 
                 const card = document.createElement('div');
                 card.className = 'card-proposicao';
@@ -375,7 +439,7 @@
                         <span><strong>Tema:</strong> ${item.tema || 'Geral'}</span>
                     </div>
                     <div class="acoes-documento">
-                        <a href="${urlPdf}" target="_blank" class="btn-acao btn-pdf">📄 Ver PDF / Documento</a>
+                        <a href="${urlPdf}" target="_blank" class="btn-acao btn-pdf">📄 Ver Documento / PDF</a>
                         <a href="${urlOficial}" target="_blank" class="btn-acao btn-oficial">🔗 Portal da Câmara</a>
                     </div>
                 `;
@@ -385,44 +449,32 @@
             atualizarRanking(dados);
         }
 
-        function filtrarDados() {
-            const tipoFiltro = document.getElementById('filtroTipo').value;
-            const autorFiltro = document.getElementById('filtroAutor').value;
-
-            const filtrados = dadosGlobais.filter(item => {
-                const matchTipo = tipoFiltro === '' || item.tipo_materia === tipoFiltro;
-                const matchAutor = autorFiltro === '' || item.autor === autorFiltro;
-                return matchTipo && matchAutor;
-            });
-
-            renderizar(filtrados);
-        }
-
         function atualizarRanking(dados) {
             const contagem = {};
             dados.forEach(item => {
-                const autor = item.autor || 'Não informado';
+                const autor = item.autor || 'Desconhecido';
                 contagem[autor] = (contagem[autor] || 0) + 1;
             });
 
             const rankingOrdenado = Object.entries(contagem).sort((a, b) => b[1] - a[1]);
-            const containerRanking = document.getElementById('rankingAutores');
-            containerRanking.innerHTML = '';
+            const rankingContainer = document.getElementById('rankingLista');
+            rankingContainer.innerHTML = '';
 
             if (rankingOrdenado.length === 0) {
-                containerRanking.innerHTML = '<p style="font-size: 13px; color: var(--text-muted);">Sem dados para o ranking.</p>';
+                rankingContainer.innerHTML = '<p style="font-size: 0.85rem; color: var(--text-muted); text-align: center; padding: 10px;">Sem dados para o ranking</p>';
                 return;
             }
 
-            rankingOrdenado.forEach(([autor, total], index) => {
-                const div = document.createElement('div');
-                div.className = 'ranking-item';
-                div.innerHTML = `<span>${index + 1}. ${autor}</span><strong>${total}</strong>`;
-                containerRanking.appendChild(div);
+            rankingOrdenado.forEach(([autor, qtd], index) => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'ranking-item';
+                itemDiv.innerHTML = `
+                    <span class="ranking-nome">${index + 1}. ${autor}</span>
+                    <span class="ranking-qtd">${qtd}</span>
+                `;
+                rankingContainer.appendChild(itemDiv);
             });
         }
-
-        carregarDados();
     </script>
 </body>
 
