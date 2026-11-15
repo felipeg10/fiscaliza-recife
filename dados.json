@@ -9,8 +9,8 @@
         "ano": "2026",
         "tema": "Meio Ambiente",
         "status": "Em Tramitação",
-        "url_oficial": "https://sapl.recife.pe.leg.br/materia/1201",
-        "url_pdf": "https://sapl.recife.pe.leg.br/media/sapl/public/materia/2026/plcv-04-2026.pdf"
+        "url_oficial": "https://sapl.recife.pe.leg.br/materia/pesquisar-materia",
+        "url_pdf": "https://sapl.recife.pe.leg.br/materia/pesquisar-materia"
     },
     {
         "id_sapl": 1202,
@@ -22,8 +22,8 @@
         "ano": "2026",
         "tema": "Meio Ambiente",
         "status": "Em Tramitação",
-        "url_oficial": "https://sapl.recife.pe.leg.br/materia/1202",
-        "url_pdf": "https://sapl.recife.pe.leg.br/media/sapl/public/materia/2026/plcv-03-2026.pdf"
+        "url_oficial": "https://sapl.recife.pe.leg.br/materia/pesquisar-materia",
+        "url_pdf": "https://sapl.recife.pe.leg.br/materia/pesquisar-materia"
     },
     {
         "id_sapl": 1203,
@@ -35,8 +35,8 @@
         "ano": "2026",
         "tema": "Saúde",
         "status": "Em Tramitação",
-        "url_oficial": "https://sapl.recife.pe.leg.br/materia/1203",
-        "url_pdf": "https://sapl.recife.pe.leg.br/media/sapl/public/materia/2026/ple-89-2026.pdf"
+        "url_oficial": "https://sapl.recife.pe.leg.br/materia/pesquisar-materia",
+        "url_pdf": "https://sapl.recife.pe.leg.br/materia/pesquisar-materia"
     },
     {
         "id_sapl": 1204,
@@ -48,8 +48,8 @@
         "ano": "2026",
         "tema": "Infraestrutura",
         "status": "Aprovado",
-        "url_oficial": "https://sapl.recife.pe.leg.br/materia/1204",
-        "url_pdf": "https://sapl.recife.pe.leg.br/media/sapl/public/materia/2026/req-1450-2026.pdf"
+        "url_oficial": "https://sapl.recife.pe.leg.br/materia/pesquisar-materia",
+        "url_pdf": "https://sapl.recife.pe.leg.br/materia/pesquisar-materia"
     },
     {
         "id_sapl": 1205,
@@ -61,7 +61,7 @@
         "ano": "2026",
         "tema": "Segurança Pública",
         "status": "Em Tramitação",
-        "url_oficial": "https://sapl.recife.pe.leg.br/materia/1205",
-        "url_pdf": "https://sapl.recife.pe.leg.br/media/sapl/public/materia/2026/ind-320-2026.pdf"
+        "url_oficial": "https://sapl.recife.pe.leg.br/materia/pesquisar-materia",
+        "url_pdf": "https://sapl.recife.pe.leg.br/materia/pesquisar-materia"
     }
-];
+]
