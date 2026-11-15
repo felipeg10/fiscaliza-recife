@@ -360,4 +360,33 @@
         "ano": "2026",
         "tema": "Educação",
         "status": "Em Tramitação",
-        "url_oficial": "
+        "url_oficial": "https://sapl.recife.pe.leg.br/materia/1228",
+        "url_pdf": "https://sapl.recife.pe.leg.br/materia/pesquisar-materia"
+    },
+    {
+        "id_sapl": 1229,
+        "identificacao": "PLE 100/2026",
+        "tipo_materia": "Projeto de Lei Ordinária",
+        "numero": 100,
+        "autor": "Renato Antunes",
+        "ementa": "Cria o selo empresa amiga da segurança pública.",
+        "ano": "2026",
+        "tema": "Segurança Pública",
+        "status": "Em Tramitação",
+        "url_oficial": "https://sapl.recife.pe.leg.br/materia/1229",
+        "url_pdf": "https://sapl.recife.pe.leg.br/materia/pesquisar-materia"
+    },
+    {
+        "id_sapl": 1230,
+        "identificacao": "REQ 1459/2026",
+        "tipo_materia": "Requerimento",
+        "numero": 1459,
+        "autor": "Ricardo Cruz",
+        "ementa": "Requer patrulhamento preventivo em ciclofaixas da cidade.",
+        "ano": "2026",
+        "tema": "Segurança Pública",
+        "status": "Aprovado",
+        "url_oficial": "https://sapl.recife.pe.leg.br/materia/1230",
+        "url_pdf": "https://sapl.recife.pe.leg.br/materia/pesquisar-materia"
+    }
+]
